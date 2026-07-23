@@ -2,6 +2,7 @@ extends Control
 
 @onready var health_bar: HealthBar = $"Health Bar"
 @export var max_health: float = 150
+@export var timing_window_ms: float = 100
 @export var damage: float = 6
 
 # Called when the node enters the scene tree for the first time.
@@ -28,7 +29,7 @@ var last_attack_time: float = -1
 func on_enemy_attack(hit_damage: float) -> void:
 	var current_time: float = Time.get_ticks_msec()
 	last_attack_time = current_time
-	if (current_time - last_blocked_time) < 100:
+	if (current_time - last_blocked_time) < timing_window_ms:
 		block_timer.timeout.disconnect(fail_block)
 		block_timer = null
 		return
@@ -38,12 +39,12 @@ func block() -> void:
 	if block_timer:
 		fail_block()
 	last_blocked_time = Time.get_ticks_msec()
-	block_timer = get_tree().create_timer(0.1)
+	block_timer = get_tree().create_timer(timing_window_ms/1000.0)
 	block_timer.timeout.connect(fail_block)
 
 func fail_block() -> void:
 	var current_time: float = Time.get_ticks_msec()
-	if (current_time - last_attack_time) > 150:
+	if (current_time - last_attack_time) > timing_window_ms + 50.0:
 		health_bar.update_health(-damage)
 	block_timer.timeout.disconnect(fail_block)
 	block_timer = null
