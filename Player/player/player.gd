@@ -69,6 +69,7 @@ func block() -> void:
 
 func fail_block() -> void:
 	var current_time: float = Time.get_ticks_msec()
+	SignalHub.player_fail_attack.emit()
 	if (current_time - last_attack_time) > timing_window_ms + 50.0:
 		health_bar.update_health(-damage * PlayerData.block_fail_mult)
 	block_timer.timeout.disconnect(fail_block)
