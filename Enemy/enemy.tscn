@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://ovfy0e7lf6xc"]
+
+[ext_resource type="Script" uid="uid://bj4g7mxgfm6vt" path="res://Enemy/enemy.gd" id="1_am0pq"]
+[ext_resource type="PackedScene" uid="uid://djo880j5lvu2d" path="res://Player/health_bar/health_bar.tscn" id="1_px1sc"]
+[ext_resource type="Texture2D" uid="uid://dk630aiaseb4x" path="res://icon.svg" id="2_am0pq"]
+[ext_resource type="Script" uid="uid://mu0y05uv1vcl" path="res://Enemy/MoveData.gd" id="2_eqilm"]
+
+[sub_resource type="Resource" id="Resource_63p7u"]
+script = ExtResource("2_eqilm")
+move_name = "Combo Attack"
+move_sequence = Array[int]([0, 0, 1, 1, 0, 2])
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_hxeip"]
+script = ExtResource("2_eqilm")
+move_name = "Basic Attack"
+move_sequence = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_6ttgc"]
+script = ExtResource("2_eqilm")
+move_name = "Boast"
+move_sequence = Array[int]([2])
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[node name="Enemy" type="VBoxContainer" unique_id=877934581]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_am0pq")
+move_set = Array[ExtResource("2_eqilm")]([SubResource("Resource_63p7u"), SubResource("Resource_hxeip"), SubResource("Resource_6ttgc")])
+
+[node name="Health Bar" parent="." unique_id=199237726 instance=ExtResource("1_px1sc")]
+layout_mode = 2
+
+[node name="Enemy Image" type="TextureRect" parent="." unique_id=505906556]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_am0pq")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Enemy Image" unique_id=646726003]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -343.0
+offset_top = -343.0
+offset_right = 344.0
+offset_bottom = 343.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 160
+text = "Combo attack"
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1

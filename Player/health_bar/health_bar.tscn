@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://djo880j5lvu2d"]
+
+[ext_resource type="Script" uid="uid://b7n1ev5pb1m0g" path="res://Player/health_bar/health_bar.gd" id="1_b4hep"]
+
+[node name="Health Bar" type="ProgressBar" unique_id=199237726]
+custom_minimum_size = Vector2(250, 30)
+offset_right = 250.0
+offset_bottom = 30.0
+max_value = 60.0
+step = 0.0
+value = 60.0
+allow_lesser = true
+show_percentage = false
+script = ExtResource("1_b4hep")
+
+[node name="Health Label" type="RichTextLabel" parent="." unique_id=54306700]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1

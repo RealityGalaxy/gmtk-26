@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bc1dfwhrttm12"]
+
+[ext_resource type="Script" uid="uid://y0qkb3bhvs66" path="res://Player/player/player.gd" id="1_6iw3l"]
+[ext_resource type="PackedScene" uid="uid://djo880j5lvu2d" path="res://Player/health_bar/health_bar.tscn" id="2_cs2df"]
+
+[node name="Player" type="Control" unique_id=1108854927]
+custom_minimum_size = Vector2(250, 30)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_6iw3l")
+
+[node name="Health Bar" parent="." unique_id=199237726 instance=ExtResource("2_cs2df")]
+layout_mode = 0

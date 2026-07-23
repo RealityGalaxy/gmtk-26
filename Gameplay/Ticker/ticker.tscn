@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://biifs2lrpvjkd"]
+
+[ext_resource type="Script" uid="uid://vemtmk22cq7j" path="res://Gameplay/Ticker/ticker.gd" id="1_logp5"]
+[ext_resource type="AudioStream" uid="uid://dbjf2ih3k2n6q" path="res://Assets/702168__foxfire__click-tick-menu-navigation.wav" id="2_cr14f"]
+
+[node name="Timer" type="Timer" unique_id=250186743]
+wait_time = 0.45
+autostart = true
+script = ExtResource("1_logp5")
+
+[node name="Ticker" type="AudioStreamPlayer" parent="." unique_id=1757074141]
+stream = ExtResource("2_cr14f")
+volume_db = -2.0
+pitch_scale = 0.58
+
+[connection signal="timeout" from="." to="." method="_on_timeout"]

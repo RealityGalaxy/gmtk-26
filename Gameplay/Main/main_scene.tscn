@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cvouxc0mb6cpd"]
+
+[ext_resource type="PackedScene" uid="uid://biifs2lrpvjkd" path="res://Gameplay/Ticker/ticker.tscn" id="1_ff6lm"]
+[ext_resource type="PackedScene" uid="uid://ovfy0e7lf6xc" path="res://Enemy/enemy.tscn" id="1_ieews"]
+[ext_resource type="PackedScene" uid="uid://bc1dfwhrttm12" path="res://Player/player/player.tscn" id="3_oeyej"]
+
+[node name="Main Scene" type="Control" unique_id=1108346519]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Timer" parent="." unique_id=250186743 instance=ExtResource("1_ff6lm")]
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=564152797]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Enemy" parent="VBox" unique_id=2113743495 instance=ExtResource("1_ieews")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Player" parent="VBox" unique_id=1108854927 instance=ExtResource("3_oeyej")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
