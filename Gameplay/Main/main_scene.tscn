@@ -2,15 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://biifs2lrpvjkd" path="res://Gameplay/Ticker/ticker.tscn" id="1_ff6lm"]
 [ext_resource type="PackedScene" uid="uid://ovfy0e7lf6xc" path="res://Enemy/enemy.tscn" id="1_ieews"]
+[ext_resource type="Texture2D" uid="uid://bh3buu0hdj2r8" path="res://Assets/gradient_background.tres" id="1_nmxqb"]
+[ext_resource type="Script" uid="uid://12db081u15jw" path="res://Gameplay/Main/main_scene.gd" id="2_oeyej"]
 [ext_resource type="PackedScene" uid="uid://bc1dfwhrttm12" path="res://Player/player/player.tscn" id="3_oeyej"]
 
-[node name="Main Scene" type="Control" unique_id=1108346519]
-layout_mode = 3
+[node name="Main Scene" type="TextureRect" unique_id=176727378]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("1_nmxqb")
+script = ExtResource("2_oeyej")
 
 [node name="Timer" parent="." unique_id=250186743 instance=ExtResource("1_ff6lm")]
 

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://d3fxnjokcxqj0"]
+
+[ext_resource type="Script" uid="uid://220clu6woiio" path="res://Gameplay/Menu/title_screen.gd" id="1_8n1kd"]
+
+[node name="Main Screen" type="VBoxContainer" unique_id=913285689]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+script = ExtResource("1_8n1kd")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1560135175]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 112
+theme_override_font_sizes/italics_font_size = 112
+bbcode_enabled = true
+text = "[i]Time Out![/i]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=37380729]
+custom_minimum_size = Vector2(0, 25)
+custom_maximum_size = Vector2(0, -1)
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Fight" type="Button" parent="." unique_id=384765173]
+custom_minimum_size = Vector2(350, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="Traits" type="Button" parent="." unique_id=1061614750]
+custom_minimum_size = Vector2(350, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Traits"
+
+[node name="Settings" type="Button" parent="." unique_id=459796466]
+custom_minimum_size = Vector2(350, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Settings"
+
+[connection signal="pressed" from="Fight" to="." method="_on_fight_pressed"]
+[connection signal="pressed" from="Traits" to="." method="_on_traits_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]

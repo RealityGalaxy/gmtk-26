@@ -1,19 +1,23 @@
 extends Control
 
 @onready var health_bar: HealthBar = $"Health Bar"
-@export var max_health: float = 150
-@export var timing_window_ms: float = 100
-@export var damage: float = 6
+var max_health: float = 150
+var timing_window_ms: float = 100
+var damage: float = 6
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	PlayerData.calc_player_traits()
+	damage = PlayerData.base_damage * PlayerData.damage_dealt_mult
+	timing_window_ms = PlayerData.base_block_window * PlayerData.block_window_mult
+	max_health = PlayerData.base_max_health * PlayerData.time_mult
 	health_bar.setup_health(max_health)
 	SignalHub.player_health_changed.connect(health_bar.update_health)
 	SignalHub.enemy_attack.connect(on_enemy_attack)
 	
-func _input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:	
 	if event.is_action_pressed("attack"):
-		SignalHub.player_attack.emit(damage)
+		SignalHub.player_attack.emit(damage * PlayerData.combo_multiplier)
 	
 	if event.is_action_pressed("block"):
 		block()
@@ -27,24 +31,31 @@ var block_timer: SceneTreeTimer
 var last_attack_time: float = -1
 var last_attack_dmg: float = -1
 
+func handle_block() -> void:
+	if block_timer:
+		block_timer.timeout.disconnect(fail_block)
+		block_timer = null
+	if PlayerData.block_pen > 0:
+		health_bar.update_health(-last_attack_dmg * PlayerData.block_pen)
+	if PlayerData.parry_damage > 0:
+		SignalHub.player_parry.emit(damage * PlayerData.parry_damage)
+	
+
 func on_enemy_attack(hit_damage: float) -> void:
 	var current_time: float = Time.get_ticks_msec()
 	last_attack_time = current_time
-	if (current_time - last_blocked_time) < timing_window_ms:
-		block_timer.timeout.disconnect(fail_block)
-		block_timer = null
-		return
 	last_attack_dmg = hit_damage
+	if (current_time - last_blocked_time) < timing_window_ms:
+		handle_block()
+		return
 	get_tree().create_timer(timing_window_ms/1000.0).timeout.connect(take_hit)
 	
 func take_hit() -> void:
 	var current_time: float = Time.get_ticks_msec()
 	if (current_time - last_blocked_time) < timing_window_ms:
-		if block_timer:
-			block_timer.timeout.disconnect(fail_block)
-			block_timer = null
+		handle_block()
 		return
-	health_bar.update_health(-last_attack_dmg)
+	health_bar.update_health(-last_attack_dmg * PlayerData.damage_taken_mult)
 
 func block() -> void:
 	if block_timer:
@@ -57,6 +68,6 @@ func block() -> void:
 func fail_block() -> void:
 	var current_time: float = Time.get_ticks_msec()
 	if (current_time - last_attack_time) > timing_window_ms + 50.0:
-		health_bar.update_health(-damage)
+		health_bar.update_health(-damage * PlayerData.block_fail_mult)
 	block_timer.timeout.disconnect(fail_block)
 	block_timer = null

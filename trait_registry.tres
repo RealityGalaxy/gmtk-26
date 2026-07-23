@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Registry" format=3 uid="uid://iksuyt4qc55c"]
+
+[ext_resource type="Script" uid="uid://dqtv77mng5dyh" path="res://addons/yard/registry.gd" id="1_d2srk"]
+
+[resource]
+script = ExtResource("1_d2srk")
+_version = 2
+_scan_rulesets = Array[Dictionary]([{
+&"allowed_file_extensions": Array[String]([]),
+&"class_restrictions": Array[StringName]([]),
+&"recursive_scan": false,
+&"scan_directories": Array[String](["res://Assets/Traits"]),
+&"scan_regex_exclude": "",
+&"scan_regex_include": ""
+}])
+_uids_to_string_ids = Dictionary[StringName, StringName]({
+&"uid://b2gnheoy64fqt": &"glancing_blows",
+&"uid://bhw61v7vcq3w4": &"vampire",
+&"uid://bpfnq43rfwprw": &"exhauster",
+&"uid://d25c2fb1t13mc": &"glass_cannon",
+&"uid://dd0y4qb8galb3": &"riposte",
+&"uid://dwqm0gmlvv62e": &"combo",
+&"uid://mitjwvysv10e": &"spammer",
+&"uid://tgvuhmcxcpxk": &"ghost"
+})
+_string_ids_to_uids = Dictionary[StringName, StringName]({
+&"combo": &"uid://dwqm0gmlvv62e",
+&"exhauster": &"uid://bpfnq43rfwprw",
+&"ghost": &"uid://tgvuhmcxcpxk",
+&"glancing_blows": &"uid://b2gnheoy64fqt",
+&"glass_cannon": &"uid://d25c2fb1t13mc",
+&"riposte": &"uid://dd0y4qb8galb3",
+&"spammer": &"uid://mitjwvysv10e",
+&"vampire": &"uid://bhw61v7vcq3w4"
+})

@@ -28,13 +28,17 @@ func _ready() -> void:
 	health_bar.setup_health(max_health)
 	SignalHub.game_tick.connect(on_tick)
 	SignalHub.player_attack.connect(on_player_attack)
+	SignalHub.player_parry.connect(on_player_parry)
 	temp_text.text = ""
 	
+func on_player_parry(damage: float) -> void:
+	health_bar.update_health(-damage)
+
 func on_tick() -> void:
 	next_move_in -= 1
 	if next_move_in == 0:
 		execute_random_move()
-	
+
 func execute_random_move() -> void:
 	var moves: MoveData = move_set.pick_random()
 	temp_text.text = moves.move_name
@@ -56,12 +60,14 @@ func do_move(move: MoveData.Move) -> void:
 			attack()
 		MoveData.Move.VULNERABLE:
 			vulnerable()
-			
+
 func attack() -> void:
 	flash(FlashState.ATTACK)
 	SignalHub.enemy_attack.emit(damage)
-	
+
 func reset_vulnerable() -> void:
+	if current_state == EnemyState.VULNERABLE:
+		SignalHub.combo_reset.emit()
 	current_state = EnemyState.DEFAULT
 
 func vulnerable() -> void:
@@ -83,10 +89,11 @@ var failed_attack_timer: SceneTreeTimer
 func on_player_attack(hit_damage: float) -> void:
 	if last_attack_time != -1:
 		SignalHub.player_health_changed.emit(-damage)
+		SignalHub.combo_reset.emit()
 		return
 	
 	last_attack_time = Time.get_ticks_msec()
-	last_attack_dmg = hit_damage
+	last_attack_dmg = hit_damage * PlayerData.damage_dealt_mult
 	
 	if current_state == EnemyState.VULNERABLE:
 		take_damage()
@@ -103,6 +110,10 @@ func take_damage() -> void:
 		failed_attack_timer = null
 	last_attack_time = -1
 	health_bar.update_health(-last_attack_dmg)
+	if PlayerData.attack_combo:
+		SignalHub.combo_stack.emit()
+	if PlayerData.time_steal > 0:
+		SignalHub.player_health_changed.emit(last_attack_dmg*PlayerData.time_steal)
 	last_attack_dmg = -1
 	flash(FlashState.DAMAGED)
 	current_state = EnemyState.DEFAULT

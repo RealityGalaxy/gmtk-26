@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TraitData" format=3 uid="uid://tgvuhmcxcpxk"]
+
+[ext_resource type="Script" uid="uid://duhja11meg156" path="res://Gameplay/Menu/trait_data.gd" id="1_nx5u1"]
+
+[resource]
+script = ExtResource("1_nx5u1")
+title = "Ghost"
+description = "50% more time[br]Unblocked hits deal double damage"
+time_mult = 1.5
+damage_taken_mult = 2.0
+metadata/_custom_type_script = "uid://duhja11meg156"

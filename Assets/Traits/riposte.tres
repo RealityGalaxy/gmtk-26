@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TraitData" format=3 uid="uid://dd0y4qb8galb3"]
+
+[ext_resource type="Script" uid="uid://duhja11meg156" path="res://Gameplay/Menu/trait_data.gd" id="1_n0jl6"]
+
+[resource]
+script = ExtResource("1_n0jl6")
+title = "Riposte"
+description = "Blocking deals half a hit's damage[br]Block window is 40% smaller"
+block_window_mult = 0.6
+parry_damage = 0.5
+metadata/_custom_type_script = "uid://duhja11meg156"

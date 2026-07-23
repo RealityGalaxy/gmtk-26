@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TraitData" format=3 uid="uid://b2gnheoy64fqt"]
+
+[ext_resource type="Script" uid="uid://duhja11meg156" path="res://Gameplay/Menu/trait_data.gd" id="1_igqi3"]
+
+[resource]
+script = ExtResource("1_igqi3")
+title = "Glancing Blows"
+description = "Block windows are 50% larger[br]Blocks let through 10% of the damage"
+block_window_mult = 1.5
+block_pen = 0.1
+metadata/_custom_type_script = "uid://duhja11meg156"

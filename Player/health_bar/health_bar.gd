@@ -18,7 +18,10 @@ func update_health(delta_hp: float) -> void:
 	
 func update_label() -> void:
 	if health_label:
-		health_label.text = str(snapped(value, 0.1)) + " / " + str(max_value)
+		var new_text: String = str(snapped(value, 0.1)) + " / " + str(max_value)
+		if PlayerData.attack_combo:
+			new_text += " - " + str(snapped(PlayerData.combo_multiplier, 0.1))
+		health_label.text = new_text
 
 func _process(delta: float) -> void:
 	value = lerpf(value, target_value, bar_update_rate * delta)
