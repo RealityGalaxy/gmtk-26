@@ -5,6 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://bh3buu0hdj2r8" path="res://Assets/gradient_background.tres" id="1_nmxqb"]
 [ext_resource type="Script" uid="uid://12db081u15jw" path="res://Gameplay/Main/main_scene.gd" id="2_oeyej"]
 [ext_resource type="PackedScene" uid="uid://bc1dfwhrttm12" path="res://Player/player/player.tscn" id="3_oeyej"]
+[ext_resource type="AudioStream" uid="uid://cekpq6jnw0aag" path="res://Assets/Sounds/hit_self.wav" id="6_hq1tt"]
+[ext_resource type="AudioStream" uid="uid://c32v4s8277ojp" path="res://Assets/Sounds/block_self.wav" id="8_is63a"]
+
+[sub_resource type="Gradient" id="Gradient_oeyej"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.5372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iqa84"]
+gradient = SubResource("Gradient_oeyej")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
 
 [node name="Main Scene" type="TextureRect" unique_id=176727378]
 anchors_preset = 15
@@ -34,3 +45,23 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="ColorRect" type="TextureRect" parent="." unique_id=1307547117]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_iqa84")
+
+[node name="GetHitSound" type="AudioStreamPlayer" parent="." unique_id=793117799]
+stream = ExtResource("6_hq1tt")
+
+[node name="BlockSound" type="AudioStreamPlayer" parent="." unique_id=585395256]
+stream = ExtResource("8_is63a")
+
+[node name="MissSound" type="AudioStreamPlayer" parent="." unique_id=437287532]
+stream = ExtResource("8_is63a")

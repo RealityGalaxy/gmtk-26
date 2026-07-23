@@ -13,6 +13,7 @@ enum EnemyState {
 }
 
 @onready var health_bar: HealthBar = $"Health Bar"
+@onready var get_hit_sound: AudioStreamPlayer = $HitEnemySound
 @onready var sprite: TextureRect = $"Enemy Image"
 @onready var temp_text: RichTextLabel = $"Enemy Image/RichTextLabel"
 @export var timing_window_ms: float = 100
@@ -88,6 +89,7 @@ var failed_attack_timer: SceneTreeTimer
 	
 func on_player_attack(hit_damage: float) -> void:
 	if last_attack_time != -1:
+		SignalHub.player_fail_attack.emit()
 		SignalHub.player_health_changed.emit(-damage)
 		SignalHub.combo_reset.emit()
 		return
@@ -103,8 +105,10 @@ func on_player_attack(hit_damage: float) -> void:
 		
 func punish_player() -> void:
 	SignalHub.player_health_changed.emit(-damage)
+	SignalHub.player_fail_attack.emit()
 		
 func take_damage() -> void:
+	get_hit_sound.play()
 	if failed_attack_timer:
 		failed_attack_timer.timeout.disconnect(punish_player)
 		failed_attack_timer = null

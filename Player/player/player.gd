@@ -32,6 +32,7 @@ var last_attack_time: float = -1
 var last_attack_dmg: float = -1
 
 func handle_block() -> void:
+	SignalHub.player_success_block.emit()
 	if block_timer:
 		block_timer.timeout.disconnect(fail_block)
 		block_timer = null
@@ -55,6 +56,7 @@ func take_hit() -> void:
 	if (current_time - last_blocked_time) < timing_window_ms:
 		handle_block()
 		return
+	SignalHub.enemy_hit_damage.emit()
 	health_bar.update_health(-last_attack_dmg * PlayerData.damage_taken_mult)
 
 func block() -> void:
