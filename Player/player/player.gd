@@ -25,6 +25,7 @@ func _process(delta: float) -> void:
 var last_blocked_time: float = -1
 var block_timer: SceneTreeTimer
 var last_attack_time: float = -1
+var last_attack_dmg: float = -1
 
 func on_enemy_attack(hit_damage: float) -> void:
 	var current_time: float = Time.get_ticks_msec()
@@ -33,11 +34,22 @@ func on_enemy_attack(hit_damage: float) -> void:
 		block_timer.timeout.disconnect(fail_block)
 		block_timer = null
 		return
-	health_bar.update_health(-hit_damage)
+	last_attack_dmg = hit_damage
+	get_tree().create_timer(timing_window_ms/1000.0).timeout.connect(take_hit)
+	
+func take_hit() -> void:
+	var current_time: float = Time.get_ticks_msec()
+	if (current_time - last_blocked_time) < timing_window_ms:
+		if block_timer:
+			block_timer.timeout.disconnect(fail_block)
+			block_timer = null
+		return
+	health_bar.update_health(-last_attack_dmg)
 
 func block() -> void:
 	if block_timer:
 		fail_block()
+		return
 	last_blocked_time = Time.get_ticks_msec()
 	block_timer = get_tree().create_timer(timing_window_ms/1000.0)
 	block_timer.timeout.connect(fail_block)
