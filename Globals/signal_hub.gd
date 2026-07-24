@@ -10,6 +10,8 @@ signal player_success_block()
 
 # --- Gameplay Signals ---
 signal game_tick()
+signal animation_tick_start()
+signal animation_tick_end()
 signal combo_reset()
 signal combo_stack()
 

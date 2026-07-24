@@ -2,27 +2,83 @@
 
 [ext_resource type="Script" uid="uid://bj4g7mxgfm6vt" path="res://Enemy/enemy.gd" id="1_am0pq"]
 [ext_resource type="PackedScene" uid="uid://djo880j5lvu2d" path="res://Player/health_bar/health_bar.tscn" id="1_px1sc"]
-[ext_resource type="Texture2D" uid="uid://dk630aiaseb4x" path="res://icon.svg" id="2_am0pq"]
-[ext_resource type="Script" uid="uid://mu0y05uv1vcl" path="res://Enemy/MoveData.gd" id="2_eqilm"]
+[ext_resource type="Script" uid="uid://t51o3dh7l0qk" path="res://Enemy/MoveSequence.gd" id="2_glvfu"]
+[ext_resource type="Script" uid="uid://mu0y05uv1vcl" path="res://Enemy/MoveData.gd" id="3_0rspp"]
+[ext_resource type="Texture2D" uid="uid://dqj8q8lpphuhy" path="res://Enemy/Glass Joe/Glass_joe_Basic_windup.png" id="4_efk13"]
+[ext_resource type="Texture2D" uid="uid://drblop0ack4ii" path="res://Enemy/Glass Joe/Glass_joe_idle.png" id="4_ncf7h"]
+[ext_resource type="Texture2D" uid="uid://btkyrq08v8cdg" path="res://Enemy/Glass Joe/Glass_joe_combo_windup.png" id="5_47ove"]
 [ext_resource type="AudioStream" uid="uid://diph31rn2728v" path="res://Assets/Sounds/hit_opponent.wav" id="5_ncf7h"]
+[ext_resource type="Texture2D" uid="uid://ddv5obg6l0ht2" path="res://Enemy/Glass Joe/Glass_joe_attack.png" id="6_efk13"]
+[ext_resource type="Texture2D" uid="uid://cx8eniwpqkm6b" path="res://Enemy/Glass Joe/Glass_joe_boast.png" id="6_jovdv"]
+[ext_resource type="Texture2D" uid="uid://cwwx10800shj8" path="res://Enemy/Glass Joe/Glass_joe_vulnerable.png" id="7_nmr1a"]
 
-[sub_resource type="Resource" id="Resource_63p7u"]
-script = ExtResource("2_eqilm")
-move_name = "Combo Attack"
-move_sequence = Array[int]([0, 0, 1, 1, 0, 2])
+[sub_resource type="Resource" id="Resource_jc0qd"]
+script = ExtResource("3_0rspp")
 metadata/_custom_type_script = "uid://mu0y05uv1vcl"
 
-[sub_resource type="Resource" id="Resource_hxeip"]
-script = ExtResource("2_eqilm")
+[sub_resource type="Resource" id="Resource_drwgb"]
+script = ExtResource("3_0rspp")
+move = 1
+sprite_on_tick = false
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_ycvrm"]
+script = ExtResource("2_glvfu")
 move_name = "Basic Attack"
-move_sequence = Array[int]([0, 1])
+move_sequence = Array[ExtResource("3_0rspp")]([SubResource("Resource_jc0qd"), SubResource("Resource_drwgb")])
+move_sprite = ExtResource("4_efk13")
+metadata/_custom_type_script = "uid://t51o3dh7l0qk"
+
+[sub_resource type="Resource" id="Resource_glvfu"]
+script = ExtResource("3_0rspp")
 metadata/_custom_type_script = "uid://mu0y05uv1vcl"
 
-[sub_resource type="Resource" id="Resource_6ttgc"]
-script = ExtResource("2_eqilm")
-move_name = "Boast"
-move_sequence = Array[int]([2])
+[sub_resource type="Resource" id="Resource_0rspp"]
+script = ExtResource("3_0rspp")
 metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_efk13"]
+script = ExtResource("3_0rspp")
+move = 1
+sprite_on_tick = false
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_nmr1a"]
+script = ExtResource("3_0rspp")
+move = 1
+sprite_on_tick = false
+sprite_flipped_h = true
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_47ove"]
+script = ExtResource("3_0rspp")
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_jovdv"]
+script = ExtResource("3_0rspp")
+move = 2
+sprite_on_tick = false
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_neawf"]
+script = ExtResource("2_glvfu")
+move_name = "Combo attack"
+move_sequence = Array[ExtResource("3_0rspp")]([SubResource("Resource_glvfu"), SubResource("Resource_0rspp"), SubResource("Resource_efk13"), SubResource("Resource_nmr1a"), SubResource("Resource_47ove"), SubResource("Resource_jovdv")])
+move_sprite = ExtResource("5_47ove")
+metadata/_custom_type_script = "uid://t51o3dh7l0qk"
+
+[sub_resource type="Resource" id="Resource_ht3ht"]
+script = ExtResource("3_0rspp")
+move = 2
+sprite_on_tick = false
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_r0ywq"]
+script = ExtResource("2_glvfu")
+move_name = "Boast"
+move_sequence = Array[ExtResource("3_0rspp")]([SubResource("Resource_ht3ht")])
+move_sprite = ExtResource("6_jovdv")
+metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [node name="Enemy" type="VBoxContainer" unique_id=877934581]
 anchors_preset = 15
@@ -31,7 +87,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_am0pq")
-move_set = Array[ExtResource("2_eqilm")]([SubResource("Resource_63p7u"), SubResource("Resource_hxeip"), SubResource("Resource_6ttgc")])
+move_set = Array[ExtResource("2_glvfu")]([SubResource("Resource_ycvrm"), SubResource("Resource_neawf"), SubResource("Resource_r0ywq")])
+idle_sprite = ExtResource("4_ncf7h")
+attack_sprite = ExtResource("6_efk13")
+vulnerable_sprite = ExtResource("7_nmr1a")
 
 [node name="Health Bar" parent="." unique_id=199237726 instance=ExtResource("1_px1sc")]
 layout_mode = 2
@@ -39,29 +98,9 @@ layout_mode = 2
 [node name="Enemy Image" type="TextureRect" parent="." unique_id=505906556]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("2_am0pq")
+texture = ExtResource("4_ncf7h")
 expand_mode = 3
 stretch_mode = 5
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Enemy Image" unique_id=646726003]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -343.0
-offset_top = -343.0
-offset_right = 344.0
-offset_bottom = 343.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 160
-text = "Combo attack"
-autowrap_mode = 2
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="HitEnemySound" type="AudioStreamPlayer" parent="." unique_id=740996851]
 stream = ExtResource("5_ncf7h")

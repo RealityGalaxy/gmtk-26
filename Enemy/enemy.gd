@@ -15,12 +15,18 @@ enum EnemyState {
 @onready var health_bar: HealthBar = $"Health Bar"
 @onready var get_hit_sound: AudioStreamPlayer = $HitEnemySound
 @onready var sprite: TextureRect = $"Enemy Image"
-@onready var temp_text: RichTextLabel = $"Enemy Image/RichTextLabel"
+
+# --- stat exports ---
 @export var timing_window_ms: float = 100
 @export var damage: float = 6
 @export var max_health: float = 150
-@export var move_set: Array[MoveData] = []
+@export var move_set: Array[MoveSequence] = []
 @export var next_move_in: int = 5
+
+# --- sprite exports ---
+@export var idle_sprite: Resource
+@export var attack_sprite: Resource
+@export var vulnerable_sprite: Resource
 
 var current_state: EnemyState = EnemyState.DEFAULT
 
@@ -30,30 +36,47 @@ func _ready() -> void:
 	SignalHub.game_tick.connect(on_tick)
 	SignalHub.player_attack.connect(on_player_attack)
 	SignalHub.player_parry.connect(on_player_parry)
-	temp_text.text = ""
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
 
 func on_tick() -> void:
 	next_move_in -= 1
+	get_tree().create_timer(0.25).timeout.connect(sprite_to_idle)
 	if next_move_in == 0:
 		execute_random_move()
+		
+func sprite_to_idle() -> void:
+	sprite.texture = idle_sprite
 
 func execute_random_move() -> void:
-	var moves: MoveData = move_set.pick_random()
-	temp_text.text = moves.move_name
-	for move in moves.move_sequence:
-		await do_move(move)
-		temp_text.text = ""
+	var move_sequence: MoveSequence = move_set.pick_random()
+	sprite.texture = move_sequence.move_sprite
+	for move_data: MoveData in move_sequence.move_sequence:
+		await do_move(move_data)
 	next_move_in = randi_range(3, 6)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	health_bar.update_health(-delta)
+	
+func get_sprite_for_move(move: MoveData.Move) -> Resource:
+	match move:
+		MoveData.Move.ATTACK:
+			return attack_sprite
+		MoveData.Move.VULNERABLE:
+			return vulnerable_sprite
+		_:
+			return idle_sprite
 
-func do_move(move: MoveData.Move) -> void:
+func do_move(move_data: MoveData) -> void:
+	var move: MoveData.Move = move_data.move
+	if !move_data.sprite_on_tick:
+		await SignalHub.animation_tick_start
+		sprite.texture = get_sprite_for_move(move)
+		sprite.flip_h = move_data.sprite_flipped_h
 	await SignalHub.game_tick
+	sprite.flip_h = move_data.sprite_flipped_h
 	match move:
 		MoveData.Move.WAIT:
 			pass

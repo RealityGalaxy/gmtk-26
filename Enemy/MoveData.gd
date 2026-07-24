@@ -7,5 +7,6 @@ enum Move {
 	VULNERABLE
 }
 
-@export var move_name: String = ""
-@export var move_sequence: Array[Move] = []
+@export var move: Move = Move.WAIT
+@export var sprite_on_tick: bool = true
+@export var sprite_flipped_h: bool = false
