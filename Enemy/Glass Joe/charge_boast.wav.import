@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b0sl1c8idodun"
+path="res://.godot/imported/charge_boast.wav-92dc6d6df4fb657ce10718866b32899a.sample"
+
+[deps]
+
+source_file="res://Enemy/Glass Joe/charge_boast.wav"
+dest_files=["res://.godot/imported/charge_boast.wav-92dc6d6df4fb657ce10718866b32899a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

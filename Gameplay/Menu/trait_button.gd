@@ -10,10 +10,8 @@ func _ready() -> void:
 	desc.text = trait_data.description
 	button_pressed = PlayerData.player_traits.any(func(x: TraitData) -> bool: return x.title == trait_data.title)
 
-
-func _on_toggled(toggled_on: bool) -> void:
-	@warning_ignore("standalone_ternary")
-	if toggled_on:
+func _on_pressed() -> void:
+	if button_pressed:
 		PlayerData.player_traits.append(trait_data)
 	else:
 		PlayerData.player_traits.erase(trait_data)

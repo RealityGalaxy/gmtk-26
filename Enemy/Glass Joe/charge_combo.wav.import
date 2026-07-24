@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://chjt33dr3m6o2"
+path="res://.godot/imported/charge_combo.wav-0bcdefe56d45d81000b77da825d077d8.sample"
+
+[deps]
+
+source_file="res://Enemy/Glass Joe/charge_combo.wav"
+dest_files=["res://.godot/imported/charge_combo.wav-0bcdefe56d45d81000b77da825d077d8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

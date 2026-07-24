@@ -56,4 +56,4 @@ theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet imposterus amoguses tragicarus"
 
-[connection signal="toggled" from="." to="." method="_on_toggled"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

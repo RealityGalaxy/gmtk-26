@@ -38,6 +38,7 @@ func _ready() -> void:
 	SignalHub.game_tick.connect(on_tick)
 	SignalHub.player_attack.connect(on_player_attack)
 	SignalHub.player_parry.connect(on_player_parry)
+	SignalHub.game_pause.connect(func() -> void: game_paused=true)
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
@@ -50,19 +51,28 @@ func on_tick() -> void:
 		
 func sprite_to_idle() -> void:
 	sprite.texture = current_idle_sprite
+	
+@onready var charge_sound: AudioStreamPlayer = $EnemyChargeSound
 
 func execute_random_move() -> void:
 	var move_sequence: MoveSequence = move_set.pick_random()
 	current_idle_sprite = move_sequence.move_sprite
 	sprite.texture = move_sequence.move_sprite
+	charge_sound.stream = move_sequence.charge_sound
+	charge_sound.play()
 	for move_data: MoveData in move_sequence.move_sequence:
 		await do_move(move_data)
 	next_move_in = randi_range(3, 6)
 	current_idle_sprite = idle_sprite
 
+var game_paused := false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	health_bar.update_health(-delta)
+	if !game_paused:
+		health_bar.update_health(-delta)
+	if health_bar.target_value <= 0:
+		SignalHub.enemy_died.emit()
 	
 func get_sprite_for_move(move: MoveData.Move) -> Resource:
 	match move:

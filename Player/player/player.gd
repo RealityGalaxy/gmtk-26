@@ -5,6 +5,8 @@ var max_health: float = 150
 var timing_window_ms: float = 100
 var damage: float = 6
 
+var game_paused := false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerData.calc_player_traits()
@@ -14,8 +16,12 @@ func _ready() -> void:
 	health_bar.setup_health(max_health)
 	SignalHub.player_health_changed.connect(health_bar.update_health)
 	SignalHub.enemy_attack.connect(on_enemy_attack)
-	
+	SignalHub.game_pause.connect(func() -> void: game_paused=true)
+
 func _input(event: InputEvent) -> void:	
+	if game_paused:
+		return
+		
 	if event.is_action_pressed("attack"):
 		SignalHub.player_attack.emit(damage * PlayerData.combo_multiplier)
 	
@@ -24,7 +30,11 @@ func _input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	health_bar.update_health(-delta)
+	if !game_paused:
+		health_bar.update_health(-delta)
+	
+	if health_bar.target_value <= 0.0:
+		SignalHub.player_died.emit()
 
 var last_blocked_time: float = -1
 var block_timer: SceneTreeTimer

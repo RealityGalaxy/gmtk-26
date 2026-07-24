@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://ciyho4hxc1bxl" path="res://Assets/Sounds/whoosh_1.wav" id="8_hq1tt"]
 [ext_resource type="AudioStream" uid="uid://c32v4s8277ojp" path="res://Assets/Sounds/block_self.wav" id="8_is63a"]
 [ext_resource type="AudioStream" uid="uid://djatrrg20n8xg" path="res://Assets/Sounds/Intro.wav" id="9_75pxf"]
+[ext_resource type="PackedScene" uid="uid://dfwbfkqjhksh" path="res://Gameplay/Main/game_over_screen.tscn" id="11_nodm6"]
 
 [sub_resource type="Gradient" id="Gradient_oeyej"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.5372549)
@@ -71,9 +72,13 @@ stream = ExtResource("8_is63a")
 [node name="MissSound" type="AudioStreamPlayer" parent="." unique_id=437287532]
 stream = ExtResource("8_hq1tt")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=387114537]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=387114537]
 stream = ExtResource("9_75pxf")
 volume_db = -3.0
 autoplay = true
 
-[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[node name="Game Over Screen" parent="." unique_id=675180266 instance=ExtResource("11_nodm6")]
+layout_mode = 1
+
+[connection signal="finished" from="MusicPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="go_back_button" from="Game Over Screen" to="." method="_on_game_over_screen_go_back_button"]
