@@ -44,7 +44,7 @@ func on_player_parry(damage: float) -> void:
 
 func on_tick() -> void:
 	next_move_in -= 1
-	get_tree().create_timer(0.25).timeout.connect(sprite_to_idle)
+	get_tree().create_timer(0.2).timeout.connect(sprite_to_idle)
 	if next_move_in == 0:
 		execute_random_move()
 		

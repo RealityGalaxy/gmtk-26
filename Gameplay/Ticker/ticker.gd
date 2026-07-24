@@ -6,7 +6,7 @@ var animation_tick_started: bool = false
 var animation_tick_ended: bool = false
 
 func _process(_delta: float) -> void:
-	if time_left <= 0.1:
+	if time_left <= 0.05:
 		SignalHub.animation_tick_start.emit()
 		animation_tick_started = true
 	if time_left <= 0.35:
