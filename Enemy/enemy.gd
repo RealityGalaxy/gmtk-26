@@ -116,6 +116,7 @@ var failed_attack_timer: SceneTreeTimer
 	
 func on_player_attack(hit_damage: float) -> void:
 	if last_attack_time != -1:
+		flash(FlashState.BLOCK)
 		SignalHub.player_fail_attack.emit()
 		SignalHub.player_health_changed.emit(-damage)
 		SignalHub.combo_reset.emit()
@@ -131,6 +132,7 @@ func on_player_attack(hit_damage: float) -> void:
 		failed_attack_timer.timeout.connect(punish_player)
 		
 func punish_player() -> void:
+	flash(FlashState.BLOCK)
 	SignalHub.player_health_changed.emit(-damage)
 	SignalHub.player_fail_attack.emit()
 		
@@ -157,8 +159,6 @@ func flash(state: FlashState) -> void:
 
 func state_to_color(state: FlashState) -> Color:
 	match state:
-		FlashState.ATTACK:
-			return Color.RED
 		FlashState.BLOCK:
 			return Color.ROYAL_BLUE
 		FlashState.DAMAGED:
