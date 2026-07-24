@@ -4,10 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://ovfy0e7lf6xc" path="res://Enemy/enemy.tscn" id="1_ieews"]
 [ext_resource type="Texture2D" uid="uid://bh3buu0hdj2r8" path="res://Assets/gradient_background.tres" id="1_nmxqb"]
 [ext_resource type="Script" uid="uid://12db081u15jw" path="res://Gameplay/Main/main_scene.gd" id="2_oeyej"]
+[ext_resource type="AudioStream" uid="uid://c71vfs5oljfkr" path="res://Assets/Sounds/Loop.wav" id="3_is63a"]
 [ext_resource type="PackedScene" uid="uid://bc1dfwhrttm12" path="res://Player/player/player.tscn" id="3_oeyej"]
 [ext_resource type="AudioStream" uid="uid://cekpq6jnw0aag" path="res://Assets/Sounds/hit_self.wav" id="6_hq1tt"]
 [ext_resource type="AudioStream" uid="uid://ciyho4hxc1bxl" path="res://Assets/Sounds/whoosh_1.wav" id="8_hq1tt"]
 [ext_resource type="AudioStream" uid="uid://c32v4s8277ojp" path="res://Assets/Sounds/block_self.wav" id="8_is63a"]
+[ext_resource type="AudioStream" uid="uid://djatrrg20n8xg" path="res://Assets/Sounds/Intro.wav" id="9_75pxf"]
 
 [sub_resource type="Gradient" id="Gradient_oeyej"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.5372549)
@@ -26,8 +28,10 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_nmxqb")
 script = ExtResource("2_oeyej")
+loop_sound = ExtResource("3_is63a")
 
 [node name="Timer" parent="." unique_id=250186743 instance=ExtResource("1_ff6lm")]
+wait_time = 0.462
 
 [node name="VBox" type="VBoxContainer" parent="." unique_id=564152797]
 layout_mode = 1
@@ -66,3 +70,10 @@ stream = ExtResource("8_is63a")
 
 [node name="MissSound" type="AudioStreamPlayer" parent="." unique_id=437287532]
 stream = ExtResource("8_hq1tt")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=387114537]
+stream = ExtResource("9_75pxf")
+volume_db = -3.0
+autoplay = true
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

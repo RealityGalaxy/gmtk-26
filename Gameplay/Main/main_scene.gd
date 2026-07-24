@@ -15,6 +15,7 @@ func _ready() -> void:
 	SignalHub.player_fail_attack.connect(on_fail_attack)
 	SignalHub.player_success_block.connect(on_block)
 	SignalHub.enemy_hit_damage.connect(on_get_hit)
+	
 
 func flash_gradient(color: Color) -> void:
 	var trans_tween: Tween = create_tween()
@@ -33,3 +34,14 @@ func on_block() -> void:
 func on_fail_attack() -> void:
 	miss_sound.play()
 	flash_gradient(Color.YELLOW)
+
+var intro_done: bool = false
+
+@export var loop_sound: AudioStream
+@onready var music_player: AudioStreamPlayer = $AudioStreamPlayer
+
+func _on_audio_stream_player_finished() -> void:
+	if !intro_done:
+		music_player.stream = loop_sound
+		intro_done = true
+	music_player.play()

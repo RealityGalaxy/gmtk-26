@@ -10,7 +10,7 @@ script = ExtResource("1_logp5")
 
 [node name="Ticker" type="AudioStreamPlayer" parent="." unique_id=1757074141]
 stream = ExtResource("2_cr14f")
-volume_db = -2.0
+volume_db = -80.0
 pitch_scale = 0.58
 
 [connection signal="timeout" from="." to="." method="_on_timeout"]
