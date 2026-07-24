@@ -27,11 +27,13 @@ enum EnemyState {
 @export var idle_sprite: Resource
 @export var attack_sprite: Resource
 @export var vulnerable_sprite: Resource
+var current_idle_sprite: Resource
 
 var current_state: EnemyState = EnemyState.DEFAULT
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	current_idle_sprite = idle_sprite
 	health_bar.setup_health(max_health)
 	SignalHub.game_tick.connect(on_tick)
 	SignalHub.player_attack.connect(on_player_attack)
@@ -47,14 +49,16 @@ func on_tick() -> void:
 		execute_random_move()
 		
 func sprite_to_idle() -> void:
-	sprite.texture = idle_sprite
+	sprite.texture = current_idle_sprite
 
 func execute_random_move() -> void:
 	var move_sequence: MoveSequence = move_set.pick_random()
+	current_idle_sprite = move_sequence.move_sprite
 	sprite.texture = move_sequence.move_sprite
 	for move_data: MoveData in move_sequence.move_sequence:
 		await do_move(move_data)
 	next_move_in = randi_range(3, 6)
+	current_idle_sprite = idle_sprite
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -67,7 +71,7 @@ func get_sprite_for_move(move: MoveData.Move) -> Resource:
 		MoveData.Move.VULNERABLE:
 			return vulnerable_sprite
 		_:
-			return idle_sprite
+			return current_idle_sprite
 
 func do_move(move_data: MoveData) -> void:
 	var move: MoveData.Move = move_data.move
