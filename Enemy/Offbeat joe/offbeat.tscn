@@ -125,7 +125,6 @@ charge_sound = ExtResource("3_ck37d")
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [node name="Offbeat" type="VBoxContainer" unique_id=877934581]
-modulate = Color(0.7166667, 0, 1, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

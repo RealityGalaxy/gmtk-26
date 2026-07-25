@@ -7,6 +7,7 @@ signal player_parry(damage: float)
 signal player_fail_attack()
 signal player_success_block()
 signal player_died()
+signal player_input()
 
 
 # --- Gameplay Signals ---

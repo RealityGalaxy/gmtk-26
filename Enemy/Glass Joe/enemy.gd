@@ -147,6 +147,7 @@ var failed_attack_timer: SceneTreeTimer
 func on_player_attack(hit_damage: float) -> void:
 	if last_attack_time != -1:
 		flash(FlashState.BLOCK)
+		print_debug("player double attacked")
 		SignalHub.player_fail_attack.emit()
 		SignalHub.player_health_changed.emit(-damage)
 		SignalHub.combo_reset.emit()
@@ -163,11 +164,13 @@ func on_player_attack(hit_damage: float) -> void:
 		
 func punish_player() -> void:
 	flash(FlashState.BLOCK)
+	print_debug("player attack missed")
 	SignalHub.player_health_changed.emit(-damage)
 	SignalHub.player_fail_attack.emit()
 		
 func take_damage() -> void:
 	get_hit_sound.play()
+	print_debug("enemy took a hit")
 	if failed_attack_timer:
 		failed_attack_timer.timeout.disconnect(punish_player)
 		failed_attack_timer = null

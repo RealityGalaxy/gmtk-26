@@ -23,9 +23,11 @@ func _input(event: InputEvent) -> void:
 		return
 		
 	if event.is_action_pressed("attack"):
+		SignalHub.player_input.emit()
 		SignalHub.player_attack.emit(damage * PlayerData.combo_multiplier)
 	
 	if event.is_action_pressed("block"):
+		SignalHub.player_input.emit()
 		block()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,6 +45,7 @@ var last_attack_dmg: float = -1
 
 func handle_block() -> void:
 	SignalHub.player_success_block.emit()
+	print_debug("player success block")
 	if block_timer:
 		block_timer.timeout.disconnect(fail_block)
 		block_timer = null
@@ -67,6 +70,7 @@ func take_hit() -> void:
 		handle_block()
 		return
 	SignalHub.enemy_hit_damage.emit()
+	print_debug("player tanked a hit")
 	health_bar.update_health(-last_attack_dmg * PlayerData.damage_taken_mult)
 
 func block() -> void:
@@ -80,6 +84,7 @@ func block() -> void:
 func fail_block() -> void:
 	var current_time: float = Time.get_ticks_msec()
 	SignalHub.player_fail_attack.emit()
+	print_debug("player block miss")
 	if (current_time - last_attack_time) > timing_window_ms + 50.0:
 		health_bar.update_health(-damage * PlayerData.block_fail_mult)
 	block_timer.timeout.disconnect(fail_block)
