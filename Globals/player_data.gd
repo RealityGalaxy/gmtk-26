@@ -1,6 +1,9 @@
 extends Node
 
 var player_traits: Array[TraitData] = []
+var fight_ranks: Array[String] = ["S", "A", "B", "C", "D"]
+var fights_unlocked: Array[bool] = [true, true, false, false, false]
+var enemy: PackedScene
 
 func _ready() -> void:
 	SignalHub.combo_reset.connect(on_combo_reset)

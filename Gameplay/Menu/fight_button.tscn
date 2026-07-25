@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://2hoina2hiky"]
+
+[ext_resource type="Script" uid="uid://dlia2ham5f2dy" path="res://Gameplay/Menu/fight_button.gd" id="1_0w1qf"]
+[ext_resource type="Texture2D" uid="uid://drblop0ack4ii" path="res://Enemy/Glass Joe/Glass_joe_idle.png" id="1_ooenw"]
+
+[node name="Button" type="Button" unique_id=784191185]
+custom_minimum_size = Vector2(250, 150)
+script = ExtResource("1_0w1qf")
+
+[node name="Control" type="Control" parent="." unique_id=2044543749]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1063177380]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 251.0025
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_ooenw")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Rank Text" type="RichTextLabel" parent="." unique_id=204281958]
+clip_contents = false
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 112.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(181, 85)
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+bbcode_enabled = true
+text = "[b][i]S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

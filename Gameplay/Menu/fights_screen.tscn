@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://b38034k18fmks"]
+
+[ext_resource type="Script" uid="uid://xb62bhb5xi5u" path="res://Gameplay/Menu/fights_screen.gd" id="1_t6w2o"]
+[ext_resource type="PackedScene" uid="uid://2hoina2hiky" path="res://Gameplay/Menu/fight_button.tscn" id="2_58mdb"]
+[ext_resource type="PackedScene" uid="uid://ovfy0e7lf6xc" path="res://Enemy/Glass Joe/enemy.tscn" id="3_pmtev"]
+[ext_resource type="Texture2D" uid="uid://drblop0ack4ii" path="res://Enemy/Glass Joe/Glass_joe_idle.png" id="4_tbgfs"]
+[ext_resource type="Script" uid="uid://crvfm2e0qqq3o" path="res://Enemy/FightData.gd" id="5_6oamy"]
+[ext_resource type="Texture2D" uid="uid://dk630aiaseb4x" path="res://icon.svg" id="6_olyr2"]
+[ext_resource type="PackedScene" uid="uid://bb652hgxi0uys" path="res://Enemy/Sequencer/sequencer.tscn" id="6_tbgfs"]
+
+[sub_resource type="Resource" id="Resource_0w1qf"]
+script = ExtResource("5_6oamy")
+fighter_name = "Glass Joe"
+fighter_sprite = ExtResource("4_tbgfs")
+fight_number = 0
+enemy_scene = ExtResource("3_pmtev")
+metadata/_custom_type_script = "uid://crvfm2e0qqq3o"
+
+[sub_resource type="Resource" id="Resource_gfpry"]
+script = ExtResource("5_6oamy")
+fighter_name = "Squencer"
+fighter_sprite = ExtResource("6_olyr2")
+fight_number = 1
+enemy_scene = ExtResource("6_tbgfs")
+metadata/_custom_type_script = "uid://crvfm2e0qqq3o"
+
+[sub_resource type="Resource" id="Resource_2addq"]
+script = ExtResource("5_6oamy")
+fighter_name = "TBD 2"
+fighter_sprite = ExtResource("6_olyr2")
+fight_number = 2
+metadata/_custom_type_script = "uid://crvfm2e0qqq3o"
+
+[sub_resource type="Resource" id="Resource_ognhl"]
+script = ExtResource("5_6oamy")
+fighter_name = "TBD 3"
+fighter_sprite = ExtResource("6_olyr2")
+fight_number = 3
+metadata/_custom_type_script = "uid://crvfm2e0qqq3o"
+
+[sub_resource type="Resource" id="Resource_cmlhx"]
+script = ExtResource("5_6oamy")
+fighter_name = "TBD 4"
+fighter_sprite = ExtResource("6_olyr2")
+fight_number = 4
+metadata/_custom_type_script = "uid://crvfm2e0qqq3o"
+
+[node name="Fights Screen" type="MarginContainer" unique_id=1035916773]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("1_t6w2o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=270054866]
+layout_mode = 2
+
+[node name="Traits Grid" type="VBoxContainer" parent="VBoxContainer" unique_id=948352774]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 32
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Traits Grid" unique_id=623994334]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Button" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=784191185 instance=ExtResource("2_58mdb")]
+layout_mode = 2
+fight_data = SubResource("Resource_0w1qf")
+
+[node name="Button2" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=273718402 instance=ExtResource("2_58mdb")]
+layout_mode = 2
+fight_data = SubResource("Resource_gfpry")
+
+[node name="Button3" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=99447294 instance=ExtResource("2_58mdb")]
+layout_mode = 2
+fight_data = SubResource("Resource_2addq")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Traits Grid" unique_id=1073150214]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Button4" parent="VBoxContainer/Traits Grid/HBoxContainer2" unique_id=1844427954 instance=ExtResource("2_58mdb")]
+layout_mode = 2
+fight_data = SubResource("Resource_ognhl")
+
+[node name="Button5" parent="VBoxContainer/Traits Grid/HBoxContainer2" unique_id=479067849 instance=ExtResource("2_58mdb")]
+layout_mode = 2
+fight_data = SubResource("Resource_cmlhx")
+
+[node name="Bottom Buttons" type="HBoxContainer" parent="VBoxContainer" unique_id=1233665040]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="VBoxContainer/Bottom Buttons" unique_id=459796466]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[connection signal="fight_button_pressed" from="VBoxContainer/Traits Grid/HBoxContainer/Button" to="." method="_on_button_fight_button_pressed"]
+[connection signal="fight_button_pressed" from="VBoxContainer/Traits Grid/HBoxContainer/Button2" to="." method="_on_button_fight_button_pressed"]
+[connection signal="fight_button_pressed" from="VBoxContainer/Traits Grid/HBoxContainer/Button3" to="." method="_on_button_fight_button_pressed"]
+[connection signal="fight_button_pressed" from="VBoxContainer/Traits Grid/HBoxContainer2/Button4" to="." method="_on_button_fight_button_pressed"]
+[connection signal="fight_button_pressed" from="VBoxContainer/Traits Grid/HBoxContainer2/Button5" to="." method="_on_button_fight_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Bottom Buttons/Back" to="." method="_on_back_pressed"]

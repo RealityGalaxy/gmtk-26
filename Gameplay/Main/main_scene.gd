@@ -4,8 +4,16 @@ extends TextureRect
 @onready var get_hit_sound: AudioStreamPlayer = $GetHitSound
 @onready var block_sound: AudioStreamPlayer = $BlockSound
 @onready var miss_sound: AudioStreamPlayer = $MissSound
+@onready var VBOX: VBoxContainer = $VBox
+@export var player: PackedScene
 
 func _ready() -> void:
+	var enemy: VBoxContainer = PlayerData.enemy.instantiate()
+	enemy.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var player_node: Control = player.instantiate()
+	player_node.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	VBOX.add_child(enemy)
+	VBOX.add_child(player_node)
 	SignalHub.player_fail_attack.connect(on_fail_attack)
 	SignalHub.player_success_block.connect(on_block)
 	SignalHub.enemy_hit_damage.connect(on_get_hit)

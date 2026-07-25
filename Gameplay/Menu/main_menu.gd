@@ -15,6 +15,12 @@ func _process(delta: float) -> void:
 var fight_scene: PackedScene = preload("res://Gameplay/Main/main_scene.tscn")
 
 func _on_fight_pressed() -> void:
+	currently_visible.visible = false
+	currently_visible = $"Fights Screen"
+	currently_visible.visible = true
+	
+func _on_fight_started(enemy: PackedScene) -> void:
+	PlayerData.enemy = enemy
 	get_tree().root.add_child(fight_scene.instantiate())
 	queue_free()
 
