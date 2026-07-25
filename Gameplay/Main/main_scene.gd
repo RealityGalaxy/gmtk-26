@@ -24,6 +24,12 @@ func _ready() -> void:
 	
 func set_bpm(bpm: float) -> void:
 	timer.wait_time = 60.0/bpm
+	
+	if bpm == 130:
+		music_player = $MusicPlayer
+	else:
+		music_player = $MusicPlayer2
+	music_player.play()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu"):
@@ -65,12 +71,6 @@ var intro_done: bool = false
 
 @export var loop_sound: AudioStream
 @onready var music_player: AudioStreamPlayer = $MusicPlayer
-#
-#func _on_audio_stream_player_finished() -> void:
-	#if !intro_done:
-		#music_player.stream = loop_sound
-		#intro_done = true
-		#music_player.
 
 func _on_game_over_screen_go_back_button() -> void:
 	go_to_main_menu()

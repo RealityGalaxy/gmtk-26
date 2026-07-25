@@ -27,6 +27,7 @@ enum EnemyState {
 # --- sprite exports ---
 @export var idle_sprite: Resource
 @export var attack_sprite: Resource
+@export var attack_sprite2: Resource
 @export var vulnerable_sprite: Resource
 var current_idle_sprite: Resource
 
@@ -44,14 +45,12 @@ func _ready() -> void:
 	SignalHub.player_attack.connect(on_player_attack)
 	SignalHub.player_parry.connect(on_player_parry)
 	SignalHub.game_pause.connect(func() -> void: game_paused=true)
-	tells_label.text = ""
 	SignalHub.enemy_bpm.emit(bpm)
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
 
 func on_tick() -> void:
-	sprite.flip_h = false
 	next_move_in -= 1
 	get_tree().create_timer(0.1).timeout.connect(sprite_to_idle)
 	if next_move_in == 0:
@@ -75,7 +74,6 @@ func sprite_to_idle() -> void:
 	sprite.texture = current_idle_sprite
 	
 @onready var charge_sound: AudioStreamPlayer = $EnemyChargeSound
-@onready var tells_label: RichTextLabel = $Tells
 
 func execute_random_move() -> void:
 	var move_sequence: MoveSequence = get_move_from_set()
@@ -114,10 +112,10 @@ func _process(delta: float) -> void:
 	if health_bar.target_value <= 0:
 		SignalHub.enemy_died.emit()
 	
-func get_sprite_for_move(move: MoveData.Move) -> Resource:
+func get_sprite_for_move(move: MoveData.Move, double: bool) -> Resource:
 	match move:
 		MoveData.Move.ATTACK:
-			return attack_sprite
+			return attack_sprite if !double else attack_sprite2
 		MoveData.Move.VULNERABLE:
 			return vulnerable_sprite
 		_:
@@ -132,11 +130,8 @@ func do_move(move_data: MoveData) -> void:
 		actual_move = saved_foretell[move_data.foretell_order]
 	if !move_data.sprite_on_tick:
 		await SignalHub.animation_tick_start
-		sprite.texture = get_sprite_for_move(actual_move)
-		sprite.flip_h = move_data.sprite_flipped_h
+		sprite.texture = get_sprite_for_move(actual_move, move_data.sprite_flipped_h)
 	await SignalHub.game_tick
-	sprite.flip_h = move_data.sprite_flipped_h
-	tells_label.text = move_data.move_text
 	match actual_move:
 		MoveData.Move.WAIT:
 			pass
@@ -157,7 +152,7 @@ func foretell_random_move() -> void:
 		move = MoveData.Move.WAIT
 	elif roll <= 1:
 		move = MoveData.Move.VULNERABLE
-	sprite.texture = get_sprite_for_move(move)
+	sprite.texture = get_sprite_for_move(move, false)
 	saved_foretell.push_back(move)
 
 func attack() -> void:

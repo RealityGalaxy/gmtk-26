@@ -10,7 +10,9 @@
 [ext_resource type="AudioStream" uid="uid://ciyho4hxc1bxl" path="res://Assets/Sounds/whoosh_1.wav" id="8_hq1tt"]
 [ext_resource type="AudioStream" uid="uid://c32v4s8277ojp" path="res://Assets/Sounds/block_self.wav" id="8_is63a"]
 [ext_resource type="AudioStream" uid="uid://b3qxvye2ng8s6" path="res://Assets/Sounds/soundloop.tres" id="10_nodm6"]
+[ext_resource type="AudioStream" uid="uid://cyv2u0piar6ep" path="res://Assets/Sounds/110 bpm.wav" id="11_3tbjr"]
 [ext_resource type="PackedScene" uid="uid://dfwbfkqjhksh" path="res://Gameplay/Main/game_over_screen.tscn" id="11_nodm6"]
+[ext_resource type="AudioStream" uid="uid://bn2capsqbpbm" path="res://Assets/Sounds/110 bpm loop.wav" id="12_ugdh6"]
 
 [sub_resource type="Gradient" id="Gradient_oeyej"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.5372549)
@@ -20,6 +22,21 @@ gradient = SubResource("Gradient_oeyej")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_djjqp"]
+clip_count = 3
+clip_0/name = &"Intro"
+clip_0/stream = ExtResource("11_3tbjr")
+clip_0/auto_advance = 1
+clip_0/next_clip = 1
+clip_1/name = &"Loop1"
+clip_1/stream = ExtResource("12_ugdh6")
+clip_1/auto_advance = 1
+clip_1/next_clip = 2
+clip_2/name = &"Loop2"
+clip_2/stream = ExtResource("12_ugdh6")
+clip_2/auto_advance = 1
+clip_2/next_clip = 1
 
 [node name="Main Scene" type="TextureRect" unique_id=176727378]
 anchors_preset = 15
@@ -36,6 +53,7 @@ loop_sound = ExtResource("4_nodm6")
 wait_time = 0.462
 
 [node name="NewProject" type="Sprite2D" parent="." unique_id=73240101]
+self_modulate = Color(0, 0, 0, 0.58431375)
 position = Vector2(642.5, 510.5)
 scale = Vector2(1.0388889, 1.1918919)
 texture = ExtResource("5_m3hhv")
@@ -72,7 +90,10 @@ stream = ExtResource("8_hq1tt")
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=387114537]
 stream = ExtResource("10_nodm6")
 volume_db = -3.0
-autoplay = true
+
+[node name="MusicPlayer2" type="AudioStreamPlayer" parent="." unique_id=379916613]
+stream = SubResource("AudioStreamInteractive_djjqp")
+volume_db = -3.0
 
 [node name="Game Over Screen" parent="." unique_id=675180266 instance=ExtResource("11_nodm6")]
 layout_mode = 1

@@ -15,8 +15,6 @@ func _process(delta: float) -> void:
 
 func _on_back_pressed() -> void:
 	back_button_pressed.emit()
-	
-	
 
 
 func _on_button_fight_button_pressed(enemy: PackedScene) -> void:
