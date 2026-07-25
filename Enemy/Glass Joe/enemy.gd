@@ -165,6 +165,7 @@ func on_player_attack(hit_damage: float) -> void:
 func punish_player() -> void:
 	flash(FlashState.BLOCK)
 	print_debug("player attack missed")
+	last_attack_time = -1
 	SignalHub.player_health_changed.emit(-damage)
 	SignalHub.player_fail_attack.emit()
 		
@@ -174,7 +175,6 @@ func take_damage() -> void:
 	if failed_attack_timer:
 		failed_attack_timer.timeout.disconnect(punish_player)
 		failed_attack_timer = null
-	last_attack_time = -1
 	health_bar.update_health(-last_attack_dmg)
 	if PlayerData.attack_combo:
 		SignalHub.combo_stack.emit()

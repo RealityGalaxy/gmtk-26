@@ -200,6 +200,7 @@ func on_player_attack(hit_damage: float) -> void:
 func punish_player() -> void:
 	print_debug("player attack missed")
 	flash(FlashState.BLOCK)
+	last_attack_time = -1
 	SignalHub.player_health_changed.emit(-damage)
 	SignalHub.player_fail_attack.emit()
 		
