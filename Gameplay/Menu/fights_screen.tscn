@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://crvfm2e0qqq3o" path="res://Enemy/FightData.gd" id="5_6oamy"]
 [ext_resource type="Texture2D" uid="uid://dk630aiaseb4x" path="res://icon.svg" id="6_olyr2"]
 [ext_resource type="PackedScene" uid="uid://bb652hgxi0uys" path="res://Enemy/Sequencer/sequencer.tscn" id="6_tbgfs"]
+[ext_resource type="PackedScene" uid="uid://hnluwrby0apx" path="res://Enemy/Offbeat joe/offbeat.tscn" id="8_6oamy"]
 
 [sub_resource type="Resource" id="Resource_0w1qf"]
 script = ExtResource("5_6oamy")
@@ -29,6 +30,7 @@ script = ExtResource("5_6oamy")
 fighter_name = "TBD 2"
 fighter_sprite = ExtResource("6_olyr2")
 fight_number = 2
+enemy_scene = ExtResource("8_6oamy")
 metadata/_custom_type_script = "uid://crvfm2e0qqq3o"
 
 [sub_resource type="Resource" id="Resource_ognhl"]

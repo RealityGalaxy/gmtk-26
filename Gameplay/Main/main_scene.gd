@@ -6,8 +6,10 @@ extends TextureRect
 @onready var miss_sound: AudioStreamPlayer = $MissSound
 @onready var VBOX: VBoxContainer = $VBox
 @export var player: PackedScene
+@onready var timer: Timer = $Timer
 
 func _ready() -> void:
+	SignalHub.enemy_bpm.connect(set_bpm)
 	var enemy: VBoxContainer = PlayerData.enemy.instantiate()
 	enemy.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var player_node: Control = player.instantiate()
@@ -19,6 +21,9 @@ func _ready() -> void:
 	SignalHub.enemy_hit_damage.connect(on_get_hit)
 	SignalHub.enemy_died.connect(game_end)
 	SignalHub.player_died.connect(game_end)
+	
+func set_bpm(bpm: float) -> void:
+	timer.wait_time = 60.0/bpm
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu"):
@@ -32,7 +37,6 @@ func go_to_main_menu() -> void:
 @onready var game_over_screen: ColorRect = $"Game Over Screen"
 @onready var game_over_content: Control = $"Game Over Screen/Game Over Content"
 @onready var game_over_text: RichTextLabel = $"Game Over Screen/Game Over Content/Game Over Text"
-@onready var timer: Timer = $Timer
   
 func game_end() -> void:
 	SignalHub.game_pause.emit()
@@ -61,13 +65,12 @@ var intro_done: bool = false
 
 @export var loop_sound: AudioStream
 @onready var music_player: AudioStreamPlayer = $MusicPlayer
-
-func _on_audio_stream_player_finished() -> void:
-	if !intro_done:
-		music_player.stream = loop_sound
-		intro_done = true
-	music_player.play()
-
+#
+#func _on_audio_stream_player_finished() -> void:
+	#if !intro_done:
+		#music_player.stream = loop_sound
+		#intro_done = true
+		#music_player.
 
 func _on_game_over_screen_go_back_button() -> void:
 	go_to_main_menu()

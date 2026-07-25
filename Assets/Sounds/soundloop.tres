@@ -1,0 +1,19 @@
+[gd_resource type="AudioStreamInteractive" format=3 uid="uid://b3qxvye2ng8s6"]
+
+[ext_resource type="AudioStream" uid="uid://cn6vnl2ct3c7p" path="res://Assets/Sounds/Intro (1).wav" id="1_vyh11"]
+[ext_resource type="AudioStream" uid="uid://djwyhtl6fprmc" path="res://Assets/Sounds/Loop (1).wav" id="2_nqg0b"]
+
+[resource]
+clip_count = 3
+clip_0/name = &"Intro"
+clip_0/stream = ExtResource("1_vyh11")
+clip_0/auto_advance = 1
+clip_0/next_clip = 1
+clip_1/name = &"Loop1"
+clip_1/stream = ExtResource("2_nqg0b")
+clip_1/auto_advance = 1
+clip_1/next_clip = 2
+clip_2/name = &"Loop2"
+clip_2/stream = ExtResource("2_nqg0b")
+clip_2/auto_advance = 1
+clip_2/next_clip = 1

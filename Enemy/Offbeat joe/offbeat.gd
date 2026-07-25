@@ -32,37 +32,50 @@ var current_idle_sprite: Resource
 
 var current_state: EnemyState = EnemyState.DEFAULT
 
+var saved_foretell: Array[MoveData.Move] = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	move_set[0].move_odds = 0.5
+	move_set[1].move_odds = 0
 	current_idle_sprite = idle_sprite
 	health_bar.setup_health(max_health)
 	SignalHub.game_tick.connect(on_tick)
 	SignalHub.player_attack.connect(on_player_attack)
 	SignalHub.player_parry.connect(on_player_parry)
 	SignalHub.game_pause.connect(func() -> void: game_paused=true)
+	tells_label.text = ""
 	SignalHub.enemy_bpm.emit(bpm)
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
 
 func on_tick() -> void:
+	sprite.flip_h = false
 	next_move_in -= 1
-	get_tree().create_timer(0.2).timeout.connect(sprite_to_idle)
+	get_tree().create_timer(0.1).timeout.connect(sprite_to_idle)
 	if next_move_in == 0:
 		execute_random_move()
 	jiggle()
 	
+var jiggled: bool = false
+
 func jiggle() -> void:
+	if jiggled:
+		jiggled = false
+		return
 	var start_post := sprite.offset_transform_position
 	var tween := create_tween()
 	tween.tween_property(sprite, "offset_transform_position", start_post+Vector2(0, 5), 0.05)
 	tween.tween_property(sprite, "offset_transform_position", start_post-Vector2(0, 5), 0.05)
 	tween.tween_property(sprite, "offset_transform_position", start_post, 0.05)
+	jiggled = true
 		
 func sprite_to_idle() -> void:
 	sprite.texture = current_idle_sprite
 	
 @onready var charge_sound: AudioStreamPlayer = $EnemyChargeSound
+@onready var tells_label: RichTextLabel = $Tells
 
 func execute_random_move() -> void:
 	var move_sequence: MoveSequence = get_move_from_set()
@@ -70,20 +83,24 @@ func execute_random_move() -> void:
 	sprite.texture = move_sequence.move_sprite
 	charge_sound.stream = move_sequence.charge_sound
 	charge_sound.play()
+	current_move_name = move_sequence.move_name
 	for move_data: MoveData in move_sequence.move_sequence:
 		await do_move(move_data)
-	next_move_in = randi_range(3, 6)
+	next_move_in = randi_range(3, 6) * 2
 	current_idle_sprite = idle_sprite
-	
+	current_move_name = ""
+	saved_foretell.clear()
+
 func get_move_from_set() -> MoveSequence:
 	var roll: float = randf()
 	for move: MoveSequence in move_set:
+		if move.move_odds == 0:
+			pass
 		if roll <= move.move_odds:
 			return move
 		roll -= move.move_odds
 		
 	return move_set.pick_random()
-	
 
 var game_paused := false
 
@@ -91,6 +108,9 @@ var game_paused := false
 func _process(delta: float) -> void:
 	if !game_paused:
 		health_bar.update_health(-delta)
+	if health_bar.target_value <= 90:
+		move_set[0].move_odds = 0
+		move_set[1].move_odds = 0.5
 	if health_bar.target_value <= 0:
 		SignalHub.enemy_died.emit()
 	
@@ -102,22 +122,43 @@ func get_sprite_for_move(move: MoveData.Move) -> Resource:
 			return vulnerable_sprite
 		_:
 			return current_idle_sprite
+			
+var current_move_name: String = ""
 
 func do_move(move_data: MoveData) -> void:
 	var move: MoveData.Move = move_data.move
+	var actual_move := move
+	if move == MoveData.Move.EXECUTE:
+		actual_move = saved_foretell[move_data.foretell_order]
 	if !move_data.sprite_on_tick:
 		await SignalHub.animation_tick_start
-		sprite.texture = get_sprite_for_move(move)
+		sprite.texture = get_sprite_for_move(actual_move)
 		sprite.flip_h = move_data.sprite_flipped_h
 	await SignalHub.game_tick
 	sprite.flip_h = move_data.sprite_flipped_h
-	match move:
+	tells_label.text = move_data.move_text
+	match actual_move:
 		MoveData.Move.WAIT:
 			pass
 		MoveData.Move.ATTACK:
 			attack()
 		MoveData.Move.VULNERABLE:
 			vulnerable()
+		MoveData.Move.FORETELL:
+			foretell_random_move()
+			
+			
+func foretell_random_move() -> void:
+	var roll := randf()
+	var move: MoveData.Move
+	if roll <= 0.5:
+		move = MoveData.Move.ATTACK
+	elif roll <= 0.8:
+		move = MoveData.Move.WAIT
+	elif roll <= 1:
+		move = MoveData.Move.VULNERABLE
+	sprite.texture = get_sprite_for_move(move)
+	saved_foretell.push_back(move)
 
 func attack() -> void:
 	flash(FlashState.ATTACK)

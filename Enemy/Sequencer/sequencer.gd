@@ -22,6 +22,7 @@ enum EnemyState {
 @export var max_health: float = 150
 @export var move_set: Array[MoveSequence] = []
 @export var next_move_in: int = 5
+@export var bpm: float = 130.0
 
 # --- sprite exports ---
 @export var idle_sprite: Resource
@@ -44,6 +45,7 @@ func _ready() -> void:
 	SignalHub.player_parry.connect(on_player_parry)
 	SignalHub.game_pause.connect(func() -> void: game_paused=true)
 	tells_label.text = ""
+	SignalHub.enemy_bpm.emit(bpm)
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
