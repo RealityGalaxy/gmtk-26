@@ -3,6 +3,7 @@ extends Button
 @onready var title: RichTextLabel = $"MarginContainer/HBoxContainer/Text Box/Title"
 @onready var desc: RichTextLabel = $"MarginContainer/HBoxContainer/Text Box/Description"
 @onready var sprite: TextureRect = $"MarginContainer/HBoxContainer/Trait Icon"
+@export var sprite_res: Resource
 @export var trait_data: TraitData
 @export var unlocked_by_fight: int = 0
 var unlocked := false
@@ -16,6 +17,7 @@ func _ready() -> void:
 func refresh_unlock() -> void:
 	unlocked = PlayerData.fights_won[unlocked_by_fight]
 	disabled = !unlocked
+	sprite.texture = sprite_res
 	sprite.modulate = Color.BLACK if !unlocked else Color.WHITE
 	title.text = trait_data.title if unlocked else "Locked"
 	desc.text = trait_data.description if unlocked else "Unlock by winning fight #" + str(unlocked_by_fight+1)

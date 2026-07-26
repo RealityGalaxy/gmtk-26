@@ -72,6 +72,7 @@ move_sequence = Array[ExtResource("4_7vd48")]([SubResource("Resource_2ddr2"), Su
 move_sprite = ExtResource("5_xendv")
 move_odds = 0.5
 charge_sound = ExtResource("3_xendv")
+bag_amount = 5
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [sub_resource type="Resource" id="Resource_dl5yc"]
@@ -166,6 +167,7 @@ move_sequence = Array[ExtResource("4_7vd48")]([SubResource("Resource_mxwqp"), Su
 move_sprite = ExtResource("7_ug6ko")
 move_odds = 0.3
 charge_sound = ExtResource("6_ug6ko")
+bag_amount = 3
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [sub_resource type="Resource" id="Resource_xlk80"]
@@ -203,6 +205,7 @@ move_sequence = Array[ExtResource("4_7vd48")]([SubResource("Resource_xlk80"), Su
 move_sprite = ExtResource("7_ug6ko")
 move_odds = 0.2
 charge_sound = ExtResource("6_ug6ko")
+bag_amount = 2
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [node name="Sequencer" type="VBoxContainer" unique_id=877934581 node_paths=PackedStringArray("attack_foretell_sound", "vuln_foretell_sound", "wait_foretell_sound", "fakeout_sound")]
@@ -254,23 +257,29 @@ layout_mode = 2
 
 [node name="HitEnemySound" type="AudioStreamPlayer" parent="." unique_id=740996851]
 stream = ExtResource("14_jc6mc")
+bus = &"SFX"
 
 [node name="EnemyChargeSound" type="AudioStreamPlayer" parent="." unique_id=1805718667]
 stream = ExtResource("3_oplho")
 volume_db = -3.0
+bus = &"SFX"
 
 [node name="ForetellAttackSound" type="AudioStreamPlayer" parent="." unique_id=2010305650]
 stream = ExtResource("27_b2jsu")
 volume_db = -3.0
+bus = &"SFX"
 
 [node name="ForetellVulnSound" type="AudioStreamPlayer" parent="." unique_id=343062448]
 stream = ExtResource("28_ignoi")
 volume_db = -3.0
+bus = &"SFX"
 
 [node name="ForetellWaitSound" type="AudioStreamPlayer" parent="." unique_id=854351780]
 stream = ExtResource("29_jq1e2")
 volume_db = -3.0
+bus = &"SFX"
 
 [node name="FakeoutSound" type="AudioStreamPlayer" parent="." unique_id=1322379062]
 stream = ExtResource("30_ignoi")
 volume_db = -3.0
+bus = &"SFX"

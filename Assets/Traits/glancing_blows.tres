@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_igqi3")
 title = "Glancing Blows"
-description = "Block windows are 50% larger[br]Blocks let through 10% of the damage"
+description = "• Block windows are 50% larger[br]‎• Blocks let through 10% of the damage"
 block_window_mult = 1.5
 block_pen = 0.1
 metadata/_custom_type_script = "uid://duhja11meg156"

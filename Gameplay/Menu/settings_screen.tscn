@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c71je5ey0yknb"]
 
 [ext_resource type="Script" uid="uid://cwx1xbujif5d" path="res://Gameplay/Menu/settings_screen.gd" id="1_f78ny"]
+[ext_resource type="Script" uid="uid://co8v0cvsbavev" path="res://Gameplay/Menu/h_slider.gd" id="2_e4r5l"]
 
 [node name="Settings" type="MarginContainer" unique_id=1323211115]
 anchors_preset = 15
@@ -24,6 +25,98 @@ size_flags_vertical = 3
 theme_override_constants/separation = 32
 alignment = 1
 
+[node name="Control" type="Control" parent="Settings/Settings" unique_id=200928349]
+custom_minimum_size = Vector2(350, 100)
+custom_maximum_size = Vector2(350, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Music Volume" type="Control" parent="Settings/Settings/Control" unique_id=467590902]
+custom_minimum_size = Vector2(350, 50)
+custom_maximum_size = Vector2(350, -1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Settings/Settings/Control/Music Volume" unique_id=1241046596]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -30.0
+offset_right = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+text = "Music Volume"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HSlider" type="HSlider" parent="Settings/Settings/Control/Music Volume" unique_id=1481050188]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("2_e4r5l")
+bus_name = "Music"
+
+[node name="Effects Volume" type="Control" parent="Settings/Settings/Control" unique_id=2077324611]
+custom_minimum_size = Vector2(350, 50)
+custom_maximum_size = Vector2(350, -1)
+anchors_preset = 0
+offset_right = 350.0
+offset_bottom = 50.0
+size_flags_horizontal = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Settings/Settings/Control/Effects Volume" unique_id=1328710112]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -30.0
+offset_right = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+text = "Effects Volume"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HSlider" type="HSlider" parent="Settings/Settings/Control/Effects Volume" unique_id=1631112730]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("2_e4r5l")
+bus_name = "SFX"
+
 [node name="Unlock" type="Button" parent="Settings/Settings" unique_id=384765173]
 custom_minimum_size = Vector2(350, 75)
 layout_mode = 2
@@ -45,6 +138,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
+[connection signal="value_changed" from="Settings/Settings/Control/Music Volume/HSlider" to="Settings/Settings/Control/Music Volume/HSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="Settings/Settings/Control/Effects Volume/HSlider" to="Settings/Settings/Control/Effects Volume/HSlider" method="_on_value_changed"]
 [connection signal="pressed" from="Settings/Settings/Unlock" to="." method="_on_unlock_pressed"]
 [connection signal="pressed" from="Settings/Settings/Reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="Settings/Bottom Buttons/Back" to="." method="_on_back_pressed"]

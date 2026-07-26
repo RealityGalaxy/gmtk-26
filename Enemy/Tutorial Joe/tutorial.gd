@@ -45,6 +45,7 @@ func _set_tutorial_text(number: int) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerData.tutorial_done = true
+	progress_allowed = true
 	current_idle_sprite = idle_sprite
 	if !PlayerData.in_tutorial:
 		health_bar.setup_health(max_health)

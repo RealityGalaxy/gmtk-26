@@ -22,11 +22,12 @@ func _ready() -> void:
 	SignalHub.enemy_hit_damage.connect(on_get_hit)
 	SignalHub.enemy_died.connect(game_end)
 	SignalHub.player_died.connect(game_end)
+	SignalHub.restart_game.connect(_on_game_over_screen_retry_button)
 
 func bg_set(bg: Resource) -> void:
 	self.texture = bg
 
-func set_bpm(bpm: float) -> void:
+func set_bpm_later(bpm: float) -> void:
 	timer.wait_time = 60.0/bpm
 	if PlayerData.in_tutorial:
 		pass
@@ -36,6 +37,10 @@ func set_bpm(bpm: float) -> void:
 	else:
 		music_player = $MusicPlayer2
 		music_player.play()
+	
+
+func set_bpm(bpm: float) -> void:
+	get_tree().create_timer(0.05).timeout.connect(set_bpm_later.bind(bpm))
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu"):

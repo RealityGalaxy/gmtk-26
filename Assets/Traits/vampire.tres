@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_urt5c")
 title = "Vampire"
-description = "Attacks heal you for the damage dealt[br]50% less time"
+description = "• Attacks restore 8 seconds of time[br]‎• 50% less time"
 time_mult = 0.5
 time_steal = 1.0
 metadata/_custom_type_script = "uid://duhja11meg156"

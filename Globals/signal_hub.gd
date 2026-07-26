@@ -20,6 +20,7 @@ signal combo_stack()
 signal game_pause()
 signal background_set(bg: Resource)
 signal refresh_unlocks()
+signal restart_game()
 
 # --- Tutorial Signals ---
 signal start_metronome()

@@ -120,8 +120,6 @@ layout_mode = 2
 [node name="Health Bar" parent="VBoxContainer" unique_id=199237726 instance=ExtResource("11_nqgak")]
 visible = false
 layout_mode = 2
-drain_rate = 1.0
-bar_update_rate = 15.0
 
 [node name="Control2" type="Control" parent="VBoxContainer" unique_id=366127605]
 layout_mode = 2
@@ -142,7 +140,9 @@ layout_mode = 2
 
 [node name="HitEnemySound" type="AudioStreamPlayer" parent="VBoxContainer" unique_id=740996851]
 stream = ExtResource("12_30yl5")
+bus = &"SFX"
 
 [node name="EnemyChargeSound" type="AudioStreamPlayer" parent="VBoxContainer" unique_id=1805718667]
 stream = ExtResource("3_l6nrc")
 volume_db = -3.0
+bus = &"SFX"

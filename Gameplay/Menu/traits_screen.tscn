@@ -2,13 +2,20 @@
 
 [ext_resource type="Script" uid="uid://7c341l1hfytu" path="res://Gameplay/Menu/traits_screen.gd" id="1_wnm7g"]
 [ext_resource type="PackedScene" uid="uid://dgshf8ag38a4i" path="res://Gameplay/Menu/trait_button.tscn" id="2_2031g"]
+[ext_resource type="Texture2D" uid="uid://p2i6ure6363i" path="res://Assets/riposte (1).png" id="3_nxlpp"]
 [ext_resource type="Resource" uid="uid://dd0y4qb8galb3" path="res://Assets/Traits/riposte.tres" id="3_sssvv"]
 [ext_resource type="Resource" uid="uid://bhw61v7vcq3w4" path="res://Assets/Traits/vampire.tres" id="4_pran3"]
+[ext_resource type="Texture2D" uid="uid://2c1xei51x5wx" path="res://Assets/shield-impact (1).png" id="5_4gu38"]
 [ext_resource type="Resource" uid="uid://tgvuhmcxcpxk" path="res://Assets/Traits/ghost.tres" id="5_7d2ci"]
 [ext_resource type="Resource" uid="uid://d25c2fb1t13mc" path="res://Assets/Traits/glass_cannon.tres" id="6_y57u3"]
+[ext_resource type="Texture2D" uid="uid://i56mj1otudq4" path="res://Assets/rapidshare-arrow (1).png" id="7_4lxi4"]
 [ext_resource type="Resource" uid="uid://dwqm0gmlvv62e" path="res://Assets/Traits/combo.tres" id="8_s5hvl"]
+[ext_resource type="Texture2D" uid="uid://d0hd7baqnpdhm" path="res://Assets/fangs (1).png" id="9_gar6g"]
 [ext_resource type="Resource" uid="uid://mitjwvysv10e" path="res://Assets/Traits/spammer.tres" id="9_nxlpp"]
 [ext_resource type="Resource" uid="uid://b2gnheoy64fqt" path="res://Assets/Traits/glancing_blows.tres" id="10_4gu38"]
+[ext_resource type="Texture2D" uid="uid://cs5g6oxshol0t" path="res://Assets/ghost-ally (1).png" id="11_j8cmo"]
+[ext_resource type="Texture2D" uid="uid://bbve6gdphg70e" path="res://Assets/striking-arrows (1).png" id="13_4p637"]
+[ext_resource type="Texture2D" uid="uid://cdcfci05p43kx" path="res://Assets/glass-heart (1).png" id="15_f1sx6"]
 
 [node name="Traits Screen" type="MarginContainer" unique_id=1035916773]
 anchors_preset = 15
@@ -35,16 +42,19 @@ theme_override_constants/separation = 32
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="Trait Button" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=578546405 instance=ExtResource("2_2031g")]
+[node name="Trait Button4" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=1165838064 instance=ExtResource("2_2031g")]
 layout_mode = 2
-trait_data = ExtResource("3_sssvv")
+sprite_res = ExtResource("9_gar6g")
+trait_data = ExtResource("4_pran3")
 
 [node name="Trait Button2" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=766053266 instance=ExtResource("2_2031g")]
 layout_mode = 2
+sprite_res = ExtResource("5_4gu38")
 trait_data = ExtResource("10_4gu38")
 
 [node name="Trait Button3" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=1917323891 instance=ExtResource("2_2031g")]
 layout_mode = 2
+sprite_res = ExtResource("7_4lxi4")
 trait_data = ExtResource("9_nxlpp")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Traits Grid" unique_id=354400075]
@@ -52,13 +62,15 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 32
 
-[node name="Trait Button4" parent="VBoxContainer/Traits Grid/HBoxContainer2" unique_id=1165838064 instance=ExtResource("2_2031g")]
+[node name="Trait Button" parent="VBoxContainer/Traits Grid/HBoxContainer2" unique_id=578546405 instance=ExtResource("2_2031g")]
 layout_mode = 2
-trait_data = ExtResource("4_pran3")
+sprite_res = ExtResource("3_nxlpp")
+trait_data = ExtResource("3_sssvv")
 unlocked_by_fight = 1
 
 [node name="Trait Button5" parent="VBoxContainer/Traits Grid/HBoxContainer2" unique_id=87857125 instance=ExtResource("2_2031g")]
 layout_mode = 2
+sprite_res = ExtResource("11_j8cmo")
 trait_data = ExtResource("5_7d2ci")
 unlocked_by_fight = 1
 
@@ -69,11 +81,13 @@ theme_override_constants/separation = 32
 
 [node name="Trait Button6" parent="VBoxContainer/Traits Grid/HBoxContainer3" unique_id=660872766 instance=ExtResource("2_2031g")]
 layout_mode = 2
+sprite_res = ExtResource("13_4p637")
 trait_data = ExtResource("8_s5hvl")
 unlocked_by_fight = 2
 
 [node name="Trait Button7" parent="VBoxContainer/Traits Grid/HBoxContainer3" unique_id=428214960 instance=ExtResource("2_2031g")]
 layout_mode = 2
+sprite_res = ExtResource("15_f1sx6")
 trait_data = ExtResource("6_y57u3")
 unlocked_by_fight = 2
 

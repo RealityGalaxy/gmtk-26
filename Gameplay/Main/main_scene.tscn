@@ -82,20 +82,25 @@ texture = SubResource("GradientTexture2D_iqa84")
 
 [node name="GetHitSound" type="AudioStreamPlayer" parent="." unique_id=793117799]
 stream = ExtResource("6_hq1tt")
+bus = &"SFX"
 
 [node name="BlockSound" type="AudioStreamPlayer" parent="." unique_id=585395256]
 stream = ExtResource("8_is63a")
+bus = &"SFX"
 
 [node name="MissSound" type="AudioStreamPlayer" parent="." unique_id=437287532]
 stream = ExtResource("8_hq1tt")
+bus = &"SFX"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=387114537]
 stream = ExtResource("10_nodm6")
 volume_db = -3.0
+bus = &"Music"
 
 [node name="MusicPlayer2" type="AudioStreamPlayer" parent="." unique_id=379916613]
 stream = SubResource("AudioStreamInteractive_djjqp")
 volume_db = -3.0
+bus = &"Music"
 
 [node name="Game Over Screen" parent="." unique_id=675180266 instance=ExtResource("11_nodm6")]
 layout_mode = 1

@@ -33,6 +33,7 @@ move_sequence = Array[ExtResource("4_x41xm")]([SubResource("Resource_jc0qd"), Su
 move_sprite = ExtResource("5_yx0xj")
 move_odds = 0.45
 charge_sound = ExtResource("3_8um0a")
+bag_amount = 8
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [sub_resource type="Resource" id="Resource_glvfu"]
@@ -73,6 +74,7 @@ move_sequence = Array[ExtResource("4_x41xm")]([SubResource("Resource_glvfu"), Su
 move_sprite = ExtResource("7_8innl")
 move_odds = 0.3
 charge_sound = ExtResource("6_dl5yc")
+bag_amount = 7
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [sub_resource type="Resource" id="Resource_ht3ht"]
@@ -88,6 +90,7 @@ move_sequence = Array[ExtResource("4_x41xm")]([SubResource("Resource_ht3ht")])
 move_sprite = ExtResource("9_yprwg")
 move_odds = 0.25
 charge_sound = ExtResource("8_p3yr8")
+bag_amount = 5
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [node name="Enemy" type="VBoxContainer" unique_id=877934581]
@@ -130,7 +133,9 @@ layout_mode = 2
 
 [node name="HitEnemySound" type="AudioStreamPlayer" parent="." unique_id=740996851]
 stream = ExtResource("14_m40xt")
+bus = &"SFX"
 
 [node name="EnemyChargeSound" type="AudioStreamPlayer" parent="." unique_id=1805718667]
 stream = ExtResource("3_8um0a")
 volume_db = -3.0
+bus = &"SFX"

@@ -34,12 +34,21 @@ var current_idle_sprite: Resource
 
 var current_state: EnemyState = EnemyState.DEFAULT
 
+var move_bag: Array[MoveSequence] = []
+
+func setup_bag() -> void:
+	for move in move_set:
+		for i in range(move.bag_amount):
+			move_bag.push_back(move.duplicate(true))
+
 var saved_foretell: Array[MoveData.Move] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	move_set[0].move_odds = 0.5
 	move_set[1].move_odds = 0
+	move_set[0].bag_amount = 5
+	move_set[1].bag_amount = 0
 	current_idle_sprite = idle_sprite
 	health_bar.setup_health(max_health)
 	SignalHub.game_tick.connect(on_tick)
@@ -49,6 +58,7 @@ func _ready() -> void:
 	SignalHub.enemy_bpm.emit(bpm)
 	SignalHub.background_set.emit(background_sprite)
 	SignalHub.combo_reset.emit()
+	setup_bag()
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
@@ -73,8 +83,16 @@ func sprite_to_idle() -> void:
 	sprite.texture = current_idle_sprite
 	
 @onready var charge_sound: AudioStreamPlayer = $EnemyChargeSound
+	
+func get_move_from_set() -> MoveSequence:
+	var move_num := randi_range(0, move_bag.size()-1)
+	var move := move_bag[move_num]
+	move_bag.remove_at(move_num)
+	return move
 
 func execute_random_move() -> void:
+	if move_bag.size() == 0:
+		setup_bag()
 	var move_sequence: MoveSequence = get_move_from_set()
 	current_idle_sprite = move_sequence.move_sprite
 	sprite.texture = move_sequence.move_sprite
@@ -88,24 +106,21 @@ func execute_random_move() -> void:
 	current_move_name = ""
 	saved_foretell.clear()
 
-func get_move_from_set() -> MoveSequence:
-	var roll: float = randf()
-	for move: MoveSequence in move_set:
-		if move.move_odds == 0:
-			continue
-		if roll <= move.move_odds:
-			return move
-		roll -= move.move_odds
-		
-	return move_set.pick_random()
-
 var game_paused := false
+
+var bag_reset_at_half := false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if health_bar.target_value <= 5:
 		move_set[0].move_odds = 0
 		move_set[1].move_odds = 0.5
+		if !bag_reset_at_half:
+			move_set[0].bag_amount = 0
+			move_set[1].bag_amount = 5
+			move_bag.clear()
+			setup_bag()
+			bag_reset_at_half = true
 	if health_bar.target_value <= 0:
 		SignalHub.enemy_died.emit()
 	
@@ -240,7 +255,7 @@ func take_damage() -> void:
 	if PlayerData.attack_combo:
 		SignalHub.combo_stack.emit()
 	if PlayerData.time_steal > 0:
-		SignalHub.player_health_changed.emit(last_attack_dmg*PlayerData.time_steal)
+		SignalHub.player_health_changed.emit(last_attack_dmg*PlayerData.time_steal*8)
 	last_attack_dmg = -1
 	flash(FlashState.DAMAGED)
 	current_state = EnemyState.DEFAULT

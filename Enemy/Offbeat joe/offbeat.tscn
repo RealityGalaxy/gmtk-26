@@ -55,6 +55,7 @@ move_sequence = Array[ExtResource("4_shpww")]([SubResource("Resource_5ai77"), Su
 move_sprite = ExtResource("5_5ai77")
 move_odds = 0.35
 charge_sound = ExtResource("6_bbywh")
+bag_amount = 8
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [sub_resource type="Resource" id="Resource_xobel"]
@@ -82,6 +83,7 @@ move_sequence = Array[ExtResource("4_shpww")]([SubResource("Resource_xobel"), Su
 move_sprite = ExtResource("7_gmitr")
 move_odds = 0.35
 charge_sound = ExtResource("13_2as4h")
+bag_amount = 7
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [sub_resource type="Resource" id="Resource_cbxww"]
@@ -120,6 +122,7 @@ move_name = "Double offbeat"
 move_sequence = Array[ExtResource("4_shpww")]([SubResource("Resource_cbxww"), SubResource("Resource_hbr6a"), SubResource("Resource_pn7vb"), SubResource("Resource_jur3g"), SubResource("Resource_7gsca"), SubResource("Resource_fweu4")])
 move_sprite = ExtResource("9_2x4a2")
 charge_sound = ExtResource("3_ck37d")
+bag_amount = 5
 metadata/_custom_type_script = "uid://t51o3dh7l0qk"
 
 [node name="Offbeat" type="VBoxContainer" unique_id=877934581]
@@ -173,7 +176,9 @@ stretch_mode = 5
 
 [node name="HitEnemySound" type="AudioStreamPlayer" parent="." unique_id=740996851]
 stream = ExtResource("12_sd8bm")
+bus = &"SFX"
 
 [node name="EnemyChargeSound" type="AudioStreamPlayer" parent="." unique_id=1805718667]
 stream = ExtResource("13_2as4h")
 volume_db = -3.0
+bus = &"SFX"
