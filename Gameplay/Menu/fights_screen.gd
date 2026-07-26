@@ -19,3 +19,9 @@ func _on_back_pressed() -> void:
 
 func _on_button_fight_button_pressed(enemy: PackedScene) -> void:
 	fight_button_pressed.emit(enemy)
+
+@export var tutorial_enemy: PackedScene
+
+func _on_tutorial_pressed() -> void:
+	PlayerData.in_tutorial = true
+	fight_button_pressed.emit(tutorial_enemy)

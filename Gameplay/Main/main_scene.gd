@@ -10,7 +10,8 @@ extends TextureRect
 
 func _ready() -> void:
 	SignalHub.enemy_bpm.connect(set_bpm)
-	var enemy: VBoxContainer = PlayerData.enemy.instantiate()
+	SignalHub.background_set.connect(bg_set)
+	var enemy: Control = PlayerData.enemy.instantiate()
 	enemy.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var player_node: Control = player.instantiate()
 	player_node.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
@@ -21,15 +22,20 @@ func _ready() -> void:
 	SignalHub.enemy_hit_damage.connect(on_get_hit)
 	SignalHub.enemy_died.connect(game_end)
 	SignalHub.player_died.connect(game_end)
-	
+
+func bg_set(bg: Resource) -> void:
+	self.texture = bg
+
 func set_bpm(bpm: float) -> void:
 	timer.wait_time = 60.0/bpm
-	
-	if bpm == 130:
+	if PlayerData.in_tutorial:
+		pass
+	elif bpm == 130:
 		music_player = $MusicPlayer
+		music_player.play()
 	else:
 		music_player = $MusicPlayer2
-	music_player.play()
+		music_player.play()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu"):
@@ -37,6 +43,7 @@ func _input(event: InputEvent) -> void:
 		
 func go_to_main_menu() -> void:
 	var main_menu := load("res://Gameplay/Menu/main_menu.tscn")
+	PlayerData.in_tutorial = false
 	get_tree().change_scene_to_packed(main_menu)
 	queue_free()
 
@@ -74,3 +81,8 @@ var intro_done: bool = false
 
 func _on_game_over_screen_go_back_button() -> void:
 	go_to_main_menu()
+
+
+func _on_game_over_screen_retry_button() -> void:
+	get_tree().current_scene = self
+	get_tree().reload_current_scene()

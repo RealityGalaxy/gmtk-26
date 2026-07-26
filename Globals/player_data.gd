@@ -1,9 +1,13 @@
 extends Node
 
 var player_traits: Array[TraitData] = []
-var fight_ranks: Array[String] = ["S", "A", "B", "C", "D"]
-var fights_unlocked: Array[bool] = [true, true, true, false, false]
+var fight_ranks: Array[String] = ["", "", "", "", ""]
+var fights_unlocked: Array[bool] = [true, false, false]
+var fights_won: Array[bool] = [false, false, false]
 var enemy: PackedScene
+var current_fight_num: int = -1
+var in_tutorial := false
+var tutorial_done := false
 
 func _ready() -> void:
 	SignalHub.combo_reset.connect(on_combo_reset)
@@ -17,7 +21,7 @@ func on_combo_reset() -> void:
 
 # --- Base Stats ---
 var base_max_health: float = 150
-var base_damage: float = 6
+var base_damage: float = 1
 var base_block_window: float = 100
 # --- Base Stats ---
 

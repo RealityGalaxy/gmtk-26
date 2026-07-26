@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://c0b75s1slghtn"]
+
+[ext_resource type="Script" uid="uid://yccdiqy7dcee" path="res://Enemy/Tutorial Joe/tutorial.gd" id="1_gkjn2"]
+[ext_resource type="Script" uid="uid://t51o3dh7l0qk" path="res://Enemy/MoveSequence.gd" id="2_t73dd"]
+[ext_resource type="AudioStream" uid="uid://cidqp1hyjq0vl" path="res://Enemy/Tutorial Joe/charge_basic.wav" id="3_l6nrc"]
+[ext_resource type="AudioStream" uid="uid://b0sl1c8idodun" path="res://Enemy/Glass Joe/charge_boast.wav" id="3_t73dd"]
+[ext_resource type="Script" uid="uid://mu0y05uv1vcl" path="res://Enemy/MoveData.gd" id="4_phmlg"]
+[ext_resource type="Texture2D" uid="uid://cx8eniwpqkm6b" path="res://Enemy/Glass Joe/Glass_joe_boast.png" id="5_l6nrc"]
+[ext_resource type="AudioStream" uid="uid://dn73il5pp867p" path="res://Enemy/Glass Joe/charge_basic.wav" id="6_phmlg"]
+[ext_resource type="Texture2D" uid="uid://dqj8q8lpphuhy" path="res://Enemy/Glass Joe/Glass_joe_Basic_windup.png" id="7_knlk5"]
+[ext_resource type="Texture2D" uid="uid://c8uagpj7tsvqm" path="res://Enemy/Tutorial Joe/Glass_joe_idle.png" id="8_f5rdy"]
+[ext_resource type="Texture2D" uid="uid://bwtek4afl8src" path="res://Enemy/Tutorial Joe/Glass_joe_attack.png" id="9_l83vq"]
+[ext_resource type="Texture2D" uid="uid://d0usmnh7xp3ov" path="res://Enemy/Tutorial Joe/Glass_joe_vulnerable.png" id="10_cwxbp"]
+[ext_resource type="Texture2D" uid="uid://ddmlkghs2g6vx" path="res://Assets/BGs/Bg1_paler.jpg" id="11_l6nrc"]
+[ext_resource type="PackedScene" uid="uid://djo880j5lvu2d" path="res://Player/health_bar/health_bar.tscn" id="11_nqgak"]
+[ext_resource type="AudioStream" uid="uid://diph31rn2728v" path="res://Assets/Sounds/hit_opponent.wav" id="12_30yl5"]
+
+[sub_resource type="Resource" id="Resource_32dg1"]
+script = ExtResource("4_phmlg")
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_lrgbg"]
+script = ExtResource("4_phmlg")
+move = 2
+sprite_on_tick = false
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_iqa84"]
+script = ExtResource("2_t73dd")
+move_name = "Vulnerable"
+move_sequence = Array[ExtResource("4_phmlg")]([SubResource("Resource_32dg1"), SubResource("Resource_lrgbg")])
+move_sprite = ExtResource("5_l6nrc")
+charge_sound = ExtResource("3_t73dd")
+metadata/_custom_type_script = "uid://t51o3dh7l0qk"
+
+[sub_resource type="Resource" id="Resource_i1e3t"]
+script = ExtResource("4_phmlg")
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_d2rij"]
+script = ExtResource("4_phmlg")
+move = 1
+sprite_on_tick = false
+metadata/_custom_type_script = "uid://mu0y05uv1vcl"
+
+[sub_resource type="Resource" id="Resource_nro2j"]
+script = ExtResource("2_t73dd")
+move_name = "Attack"
+move_sequence = Array[ExtResource("4_phmlg")]([SubResource("Resource_i1e3t"), SubResource("Resource_d2rij")])
+move_sprite = ExtResource("7_knlk5")
+charge_sound = ExtResource("6_phmlg")
+metadata/_custom_type_script = "uid://t51o3dh7l0qk"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6nrc"]
+bg_color = Color(0, 0, 0, 0.63529414)
+
+[node name="Tutorial" type="Control" unique_id=1985134241]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gkjn2")
+damage = 0.0
+move_set = Array[ExtResource("2_t73dd")]([SubResource("Resource_iqa84"), SubResource("Resource_nro2j")])
+idle_sprite = ExtResource("8_f5rdy")
+attack_sprite = ExtResource("9_l83vq")
+vulnerable_sprite = ExtResource("10_cwxbp")
+background_sprite = ExtResource("11_l6nrc")
+tutorial_texts = Array[String](["Welcome to Time Out! Before you are thrown into the ring, I thought you could use some explanation.", "Use Z/A to attack, and X/B to block, try this out!", "Great! But don’t get used to throwing those out willy-nilly, attacking or blocking with no reason is exhausting, and will cause you to lose some time in the ring, only attack and block when necessary!", "Speaking of which, we should talk about the timings. Things in the ring have a certain rhythm to them, keeping to this rhythm is vital for your success.", "“Let’s try attacking, When I lower my guard I will flash yellow, which means it's your timing to attack me, try and hit me 3 times in a row, but don’t go around pointlessly attacking.", "Good job! But in the ring, you won’t be the only one attacking, your opponents will be attacking too. If you don't block them, you will grow exhausted and lose time. Let’s practice this.", "Awesome! That should cover the basics, the rest is learning your opponent’s patterns and exploiting them, I won’t be this predictable in a real fight. Stay on your toes and stay in rhythm.", "Good luck out there!"])
+
+[node name="Panel" type="Panel" parent="." unique_id=1851404741]
+layout_mode = 0
+offset_left = 822.0
+offset_top = 37.0
+offset_right = 1216.0
+offset_bottom = 213.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l6nrc")
+
+[node name="Dialogue" type="RichTextLabel" parent="Panel" unique_id=1848883749]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.206665
+offset_top = 23.0
+offset_right = -27.580017
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Next" type="RichTextLabel" parent="Panel" unique_id=876314114]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 150.0
+offset_right = 109.0
+offset_bottom = 175.0
+text = "Space - Next"
+
+[node name="Skip" type="RichTextLabel" parent="Panel" unique_id=864339241]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 150.0
+offset_right = 386.0
+offset_bottom = 175.0
+text = "Esc - Skip Tutorial"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=785797735]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 1280.0
+offset_bottom = 720.0
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="Control" type="Control" parent="VBoxContainer" unique_id=1201228340]
+layout_mode = 2
+
+[node name="Health Bar" parent="VBoxContainer" unique_id=199237726 instance=ExtResource("11_nqgak")]
+visible = false
+layout_mode = 2
+drain_rate = 1.0
+bar_update_rate = 15.0
+
+[node name="Control2" type="Control" parent="VBoxContainer" unique_id=366127605]
+layout_mode = 2
+
+[node name="Enemy Image" type="TextureRect" parent="VBoxContainer" unique_id=505906556]
+layout_mode = 2
+size_flags_vertical = 3
+offset_transform_enabled = true
+texture = ExtResource("8_f5rdy")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Control3" type="Control" parent="VBoxContainer" unique_id=1931584198]
+layout_mode = 2
+
+[node name="Control4" type="Control" parent="VBoxContainer" unique_id=933095917]
+layout_mode = 2
+
+[node name="HitEnemySound" type="AudioStreamPlayer" parent="VBoxContainer" unique_id=740996851]
+stream = ExtResource("12_30yl5")
+
+[node name="EnemyChargeSound" type="AudioStreamPlayer" parent="VBoxContainer" unique_id=1805718667]
+stream = ExtResource("3_l6nrc")
+volume_db = -3.0

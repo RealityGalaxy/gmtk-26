@@ -2,9 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://bh3buu0hdj2r8" path="res://Assets/gradient_background.tres" id="1_1i270"]
 [ext_resource type="Script" uid="uid://bslqm7lml67si" path="res://Gameplay/Menu/main_menu.gd" id="1_bdxij"]
+[ext_resource type="PackedScene" uid="uid://c0b75s1slghtn" path="res://Enemy/Tutorial Joe/tutorial.tscn" id="3_nbyig"]
 [ext_resource type="PackedScene" uid="uid://d3fxnjokcxqj0" path="res://Gameplay/Menu/title_screen.tscn" id="3_uugnt"]
 [ext_resource type="PackedScene" uid="uid://c6ij8hi3rllbn" path="res://Gameplay/Menu/traits_screen.tscn" id="4_3yrhk"]
 [ext_resource type="PackedScene" uid="uid://b38034k18fmks" path="res://Gameplay/Menu/fights_screen.tscn" id="5_a6y7r"]
+[ext_resource type="PackedScene" uid="uid://c71je5ey0yknb" path="res://Gameplay/Menu/settings_screen.tscn" id="6_go5b5"]
 
 [node name="Main Menu" type="TextureRect" unique_id=1643074390]
 anchors_preset = 15
@@ -14,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_1i270")
 script = ExtResource("1_bdxij")
+tutorial_enemy = ExtResource("3_nbyig")
 
 [node name="Main Screen" parent="." unique_id=913285689 instance=ExtResource("3_uugnt")]
 layout_mode = 1
@@ -26,8 +29,14 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
+[node name="Settings" parent="." unique_id=1323211115 instance=ExtResource("6_go5b5")]
+visible = false
+layout_mode = 1
+
 [connection signal="fight_pressed" from="Main Screen" to="." method="_on_fight_pressed"]
+[connection signal="settings_pressed" from="Main Screen" to="." method="_on_main_screen_settings_pressed"]
 [connection signal="traits_pressed" from="Main Screen" to="." method="_on_traits_pressed"]
 [connection signal="back_button_pressed" from="Traits Screen" to="." method="_on_back_button_pressed"]
 [connection signal="back_button_pressed" from="Fights Screen" to="." method="_on_back_button_pressed"]
 [connection signal="fight_button_pressed" from="Fights Screen" to="." method="_on_fight_started"]
+[connection signal="on_back_button_pressed" from="Settings" to="." method="_on_back_button_pressed"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://y0qkb3bhvs66" path="res://Player/player/player.gd" id="1_6iw3l"]
 [ext_resource type="PackedScene" uid="uid://djo880j5lvu2d" path="res://Player/health_bar/health_bar.tscn" id="2_cs2df"]
+[ext_resource type="Texture2D" uid="uid://3oeikhhmx3se" path="res://Assets/clock-timer.png" id="3_cs2df"]
 
 [node name="Player" type="Control" unique_id=1108854927]
 custom_minimum_size = Vector2(250, 30)
@@ -10,4 +11,31 @@ anchors_preset = 0
 script = ExtResource("1_6iw3l")
 
 [node name="Health Bar" parent="." unique_id=199237726 instance=ExtResource("2_cs2df")]
+visible = false
 layout_mode = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=380046264]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=310305409]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 497.0
+offset_top = 58.0
+offset_right = 537.0
+offset_bottom = 98.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1580907724]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_cs2df")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control" unique_id=918585443]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 10.0
+offset_right = 211.0
+offset_bottom = 74.0
+theme_override_font_sizes/normal_font_size = 44
+text = "2:30"
+vertical_alignment = 1

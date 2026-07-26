@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c71je5ey0yknb"]
+
+[ext_resource type="Script" uid="uid://cwx1xbujif5d" path="res://Gameplay/Menu/settings_screen.gd" id="1_f78ny"]
+
+[node name="Settings" type="MarginContainer" unique_id=1323211115]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("1_f78ny")
+
+[node name="Settings" type="VBoxContainer" parent="." unique_id=986122340]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Settings" type="VBoxContainer" parent="Settings" unique_id=1335246498]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Unlock" type="Button" parent="Settings/Settings" unique_id=384765173]
+custom_minimum_size = Vector2(350, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Unlock all content"
+
+[node name="Reset" type="Button" parent="Settings/Settings" unique_id=1061614750]
+custom_minimum_size = Vector2(350, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Reset all progress"
+
+[node name="Bottom Buttons" type="HBoxContainer" parent="Settings" unique_id=1578827689]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Settings/Bottom Buttons" unique_id=116789121]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[connection signal="pressed" from="Settings/Settings/Unlock" to="." method="_on_unlock_pressed"]
+[connection signal="pressed" from="Settings/Settings/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Settings/Bottom Buttons/Back" to="." method="_on_back_pressed"]

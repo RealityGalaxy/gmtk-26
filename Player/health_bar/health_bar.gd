@@ -7,6 +7,10 @@ extends ProgressBar
 
 var target_value: float
 
+func _ready() -> void:
+	if PlayerData.in_tutorial:
+		self.visible = false
+
 func setup_health(max_hp: float) -> void:
 	max_value = max_hp
 	target_value = max_hp
@@ -14,7 +18,8 @@ func setup_health(max_hp: float) -> void:
 	update_label()
 
 func update_health(delta_hp: float) -> void:
-	target_value = clamp(target_value + delta_hp, 0, max_value)
+	if !PlayerData.in_tutorial:
+		target_value = clamp(target_value + delta_hp, 0, max_value)
 	
 func update_label() -> void:
 	if health_label:

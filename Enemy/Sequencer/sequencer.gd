@@ -29,6 +29,7 @@ enum EnemyState {
 @export var attack_sprite: Resource
 @export var attack_sprite2: Resource
 @export var vulnerable_sprite: Resource
+@export var background_sprite: Resource
 var current_idle_sprite: Resource
 
 var current_state: EnemyState = EnemyState.DEFAULT
@@ -46,6 +47,8 @@ func _ready() -> void:
 	SignalHub.player_parry.connect(on_player_parry)
 	SignalHub.game_pause.connect(func() -> void: game_paused=true)
 	SignalHub.enemy_bpm.emit(bpm)
+	SignalHub.background_set.emit(background_sprite)
+	SignalHub.combo_reset.emit()
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
@@ -100,9 +103,7 @@ var game_paused := false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !game_paused:
-		health_bar.update_health(-delta)
-	if health_bar.target_value <= 90:
+	if health_bar.target_value <= 5:
 		move_set[0].move_odds = 0
 		move_set[1].move_odds = 0.5
 	if health_bar.target_value <= 0:
@@ -120,6 +121,7 @@ func get_sprite_for_move(move: MoveData.Move, double_attack: bool) -> Resource:
 var current_move_name: String = ""
 var last_move_text: String = ""
 var last_move: MoveData.Move
+@export var fakeout_sprite: Resource
 
 func do_move(move_data: MoveData) -> void:
 	var move: MoveData.Move = move_data.move
@@ -136,7 +138,7 @@ func do_move(move_data: MoveData) -> void:
 	last_move_text = move_data.move_text
 	match actual_move:
 		MoveData.Move.WAIT:
-			sprite.texture = current_idle_sprite
+			sprite.texture = current_idle_sprite if move_data.move_text != "..." else fakeout_sprite
 		MoveData.Move.ATTACK:
 			attack()
 		MoveData.Move.VULNERABLE:

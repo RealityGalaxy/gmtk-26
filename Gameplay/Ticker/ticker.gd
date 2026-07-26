@@ -7,6 +7,14 @@ var animation_tick_ended: bool = false
 
 func _ready() -> void:
 	SignalHub.player_input.connect(_on_input)
+	SignalHub.start_metronome.connect(start_metronome)
+	SignalHub.stop_metronome.connect(stop_metronome)
+	
+func start_metronome() -> void:
+	ticker.volume_db = -3.0
+	
+func stop_metronome() -> void:
+	ticker.volume_db -80
 
 func _process(_delta: float) -> void:
 	if time_left <= 0.05:

@@ -45,6 +45,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_nmxqb")
+expand_mode = 3
 script = ExtResource("2_oeyej")
 player = ExtResource("3_oeyej")
 loop_sound = ExtResource("4_nodm6")
@@ -53,6 +54,7 @@ loop_sound = ExtResource("4_nodm6")
 wait_time = 0.462
 
 [node name="NewProject" type="Sprite2D" parent="." unique_id=73240101]
+visible = false
 self_modulate = Color(0, 0, 0, 0.58431375)
 position = Vector2(642.5, 510.5)
 scale = Vector2(1.0388889, 1.1918919)
@@ -99,3 +101,4 @@ volume_db = -3.0
 layout_mode = 1
 
 [connection signal="go_back_button" from="Game Over Screen" to="." method="_on_game_over_screen_go_back_button"]
+[connection signal="retry_button" from="Game Over Screen" to="." method="_on_game_over_screen_retry_button"]

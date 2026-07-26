@@ -29,6 +29,7 @@ enum EnemyState {
 @export var attack_sprite: Resource
 @export var attack_sprite2: Resource
 @export var vulnerable_sprite: Resource
+@export var background_sprite: Resource
 var current_idle_sprite: Resource
 
 var current_state: EnemyState = EnemyState.DEFAULT
@@ -46,6 +47,7 @@ func _ready() -> void:
 	SignalHub.player_parry.connect(on_player_parry)
 	SignalHub.game_pause.connect(func() -> void: game_paused=true)
 	SignalHub.enemy_bpm.emit(bpm)
+	SignalHub.background_set.emit(background_sprite)
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
@@ -104,8 +106,6 @@ var game_paused := false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !game_paused:
-		health_bar.update_health(-delta)
 	if health_bar.target_value <= 90:
 		move_set[0].move_odds = 0
 		move_set[1].move_odds = 0.5

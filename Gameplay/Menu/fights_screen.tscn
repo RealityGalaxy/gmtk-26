@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://b38034k18fmks"]
 
 [ext_resource type="Script" uid="uid://xb62bhb5xi5u" path="res://Gameplay/Menu/fights_screen.gd" id="1_t6w2o"]
-[ext_resource type="PackedScene" uid="uid://2hoina2hiky" path="res://Gameplay/Menu/fight_button.tscn" id="2_58mdb"]
+[ext_resource type="Texture2D" uid="uid://0j28gtyyldgy" path="res://Enemy/Glass Joe/Bg1.png" id="2_0of3g"]
+[ext_resource type="PackedScene" uid="uid://c0b75s1slghtn" path="res://Enemy/Tutorial Joe/tutorial.tscn" id="2_8mtd5"]
+[ext_resource type="Texture2D" uid="uid://cy1nt52218tqh" path="res://Enemy/Sequencer/sprites/bg2.png" id="3_8mtd5"]
 [ext_resource type="PackedScene" uid="uid://ovfy0e7lf6xc" path="res://Enemy/Glass Joe/enemy.tscn" id="3_pmtev"]
+[ext_resource type="Texture2D" uid="uid://cxwrgm0fr853x" path="res://Assets/BGs/Bg_thirds.png" id="3_xnwhd"]
 [ext_resource type="Texture2D" uid="uid://drblop0ack4ii" path="res://Enemy/Glass Joe/Glass_joe_idle.png" id="4_tbgfs"]
+[ext_resource type="Texture2D" uid="uid://x7i7ek5snpqp" path="res://Enemy/Offbeat joe/sprites/bg3.png" id="4_xnwhd"]
 [ext_resource type="Script" uid="uid://crvfm2e0qqq3o" path="res://Enemy/FightData.gd" id="5_6oamy"]
 [ext_resource type="PackedScene" uid="uid://bb652hgxi0uys" path="res://Enemy/Sequencer/sequencer.tscn" id="6_tbgfs"]
 [ext_resource type="Texture2D" uid="uid://cu1isk4wkccud" path="res://Enemy/Sequencer/sprites/FG Idle.png" id="7_olyr2"]
+[ext_resource type="Script" uid="uid://dlia2ham5f2dy" path="res://Gameplay/Menu/fight_button.gd" id="7_xnwhd"]
 [ext_resource type="PackedScene" uid="uid://hnluwrby0apx" path="res://Enemy/Offbeat joe/offbeat.tscn" id="8_6oamy"]
 [ext_resource type="Texture2D" uid="uid://cdryi42faaa27" path="res://Enemy/Offbeat joe/sprites/jitter_idle.png" id="9_olyr2"]
 
@@ -28,13 +33,14 @@ metadata/_custom_type_script = "uid://crvfm2e0qqq3o"
 
 [sub_resource type="Resource" id="Resource_2addq"]
 script = ExtResource("5_6oamy")
-fighter_name = "TBD 2"
+fighter_name = "Jolt"
 fighter_sprite = ExtResource("9_olyr2")
 fight_number = 2
 enemy_scene = ExtResource("8_6oamy")
 metadata/_custom_type_script = "uid://crvfm2e0qqq3o"
 
 [node name="Fights Screen" type="MarginContainer" unique_id=1035916773]
+clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -45,32 +51,169 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("1_t6w2o")
+tutorial_enemy = ExtResource("2_8mtd5")
+
+[node name="BgThirds" type="Sprite2D" parent="." unique_id=1135171329]
+position = Vector2(640.25, 360.00003)
+scale = Vector2(0.33398488, 0.33364227)
+texture = ExtResource("3_xnwhd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1735976422]
+visible = false
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-16, -16)
+offset_transform_scale = Vector2(1.1, 1.1)
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="Control" parent="HBoxContainer" unique_id=2068980412]
+custom_minimum_size = Vector2(425, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+offset_transform_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/TextureRect" unique_id=1014936197]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 832.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0of3g")
+expand_mode = 3
+
+[node name="TextureRect2" type="Control" parent="HBoxContainer" unique_id=259046706]
+custom_maximum_size = Vector2(400, -1)
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/TextureRect2" unique_id=190612783]
+layout_mode = 0
+offset_left = -416.0
+offset_right = 832.0
+offset_bottom = 688.0
+texture = ExtResource("3_8mtd5")
+expand_mode = 3
+
+[node name="TextureRect3" type="Control" parent="HBoxContainer" unique_id=2116943174]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer/TextureRect3" unique_id=75473522]
+layout_mode = 0
+offset_left = -832.0
+offset_right = 416.0
+offset_bottom = 688.0
+texture = ExtResource("4_xnwhd")
+expand_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=270054866]
 layout_mode = 2
 
-[node name="Traits Grid" type="VBoxContainer" parent="VBoxContainer" unique_id=948352774]
+[node name="HBoxContainer" type="Control" parent="VBoxContainer" unique_id=581396547]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_constants/separation = 32
+size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Traits Grid" unique_id=623994334]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 32
-
-[node name="Button" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=784191185 instance=ExtResource("2_58mdb")]
-layout_mode = 2
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=784191185]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 411.0
+offset_bottom = 703.0
+size_flags_horizontal = 6
+script = ExtResource("7_xnwhd")
 fight_data = SubResource("Resource_0w1qf")
 
-[node name="Button2" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=273718402 instance=ExtResource("2_58mdb")]
-layout_mode = 2
+[node name="Control" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button" unique_id=507885885]
+layout_mode = 1
+offset_left = -1.0
+offset_right = 426.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/Button/Control" unique_id=1063177380]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 4.0
+offset_right = 390.0
+offset_bottom = 704.6957
+pivot_offset = Vector2(163, 350)
+mouse_filter = 2
+texture = ExtResource("4_tbgfs")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=273718402]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 0
+offset_left = 411.0
+offset_top = -16.0
+offset_right = 837.0
+offset_bottom = 703.0
+size_flags_horizontal = 2
+script = ExtResource("7_xnwhd")
 fight_data = SubResource("Resource_gfpry")
 
-[node name="Button3" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=727638079 instance=ExtResource("2_58mdb")]
-layout_mode = 2
+[node name="Control" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button2" unique_id=230713759]
+layout_mode = 1
+offset_right = 426.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/Button2/Control" unique_id=159319314]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 58.0
+offset_top = 1.0
+offset_right = 384.0
+offset_bottom = 701.6957
+pivot_offset = Vector2(163, 350)
+mouse_filter = 2
+texture = ExtResource("7_olyr2")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=727638079]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 0
+offset_left = 837.0
+offset_top = -16.0
+offset_right = 1265.0
+offset_bottom = 704.0
+size_flags_horizontal = 2
+offset_transform_enabled = true
+script = ExtResource("7_xnwhd")
 fight_data = SubResource("Resource_2addq")
+
+[node name="Control" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button3" unique_id=1118366840]
+layout_mode = 1
+offset_right = 427.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/Button3/Control" unique_id=718344207]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 23.0
+offset_top = 86.0
+offset_right = 349.0
+offset_bottom = 786.6957
+pivot_offset = Vector2(163, 350)
+mouse_filter = 2
+texture = ExtResource("9_olyr2")
+expand_mode = 4
+stretch_mode = 5
 
 [node name="Bottom Buttons" type="HBoxContainer" parent="VBoxContainer" unique_id=1233665040]
 layout_mode = 2
@@ -81,7 +224,23 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
-[connection signal="fight_button_pressed" from="VBoxContainer/Traits Grid/HBoxContainer/Button" to="." method="_on_button_fight_button_pressed"]
-[connection signal="fight_button_pressed" from="VBoxContainer/Traits Grid/HBoxContainer/Button2" to="." method="_on_button_fight_button_pressed"]
-[connection signal="fight_button_pressed" from="VBoxContainer/Traits Grid/HBoxContainer/Button3" to="." method="_on_button_fight_button_pressed"]
+[node name="Tutorial" type="Button" parent="VBoxContainer/Bottom Buttons" unique_id=432981535]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Tutorial"
+
+[connection signal="fight_button_pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_on_button_fight_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/Button" to="VBoxContainer/HBoxContainer/Button" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/Button" to="VBoxContainer/HBoxContainer/Button" method="_on_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="VBoxContainer/HBoxContainer/Button" method="_on_pressed"]
+[connection signal="fight_button_pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="_on_button_fight_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/Button2" to="VBoxContainer/HBoxContainer/Button2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/Button2" to="VBoxContainer/HBoxContainer/Button2" method="_on_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="VBoxContainer/HBoxContainer/Button2" method="_on_pressed"]
+[connection signal="fight_button_pressed" from="VBoxContainer/HBoxContainer/Button3" to="." method="_on_button_fight_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/Button3" to="VBoxContainer/HBoxContainer/Button3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/Button3" to="VBoxContainer/HBoxContainer/Button3" method="_on_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button3" to="VBoxContainer/HBoxContainer/Button3" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/Bottom Buttons/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="VBoxContainer/Bottom Buttons/Tutorial" to="." method="_on_tutorial_pressed"]

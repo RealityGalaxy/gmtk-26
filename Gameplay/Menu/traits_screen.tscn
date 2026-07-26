@@ -6,7 +6,6 @@
 [ext_resource type="Resource" uid="uid://bhw61v7vcq3w4" path="res://Assets/Traits/vampire.tres" id="4_pran3"]
 [ext_resource type="Resource" uid="uid://tgvuhmcxcpxk" path="res://Assets/Traits/ghost.tres" id="5_7d2ci"]
 [ext_resource type="Resource" uid="uid://d25c2fb1t13mc" path="res://Assets/Traits/glass_cannon.tres" id="6_y57u3"]
-[ext_resource type="Resource" uid="uid://bpfnq43rfwprw" path="res://Assets/Traits/exhauster.tres" id="7_86ppj"]
 [ext_resource type="Resource" uid="uid://dwqm0gmlvv62e" path="res://Assets/Traits/combo.tres" id="8_s5hvl"]
 [ext_resource type="Resource" uid="uid://mitjwvysv10e" path="res://Assets/Traits/spammer.tres" id="9_nxlpp"]
 [ext_resource type="Resource" uid="uid://b2gnheoy64fqt" path="res://Assets/Traits/glancing_blows.tres" id="10_4gu38"]
@@ -26,45 +25,57 @@ script = ExtResource("1_wnm7g")
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=270054866]
 layout_mode = 2
 
-[node name="Traits Grid" type="GridContainer" parent="VBoxContainer" unique_id=983548889]
+[node name="Traits Grid" type="VBoxContainer" parent="VBoxContainer" unique_id=917168963]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-theme_override_constants/h_separation = 32
-theme_override_constants/v_separation = 32
-columns = 3
+theme_override_constants/separation = 32
 
-[node name="Trait Button" parent="VBoxContainer/Traits Grid" unique_id=578546405 instance=ExtResource("2_2031g")]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Traits Grid" unique_id=300165202]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Trait Button" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=578546405 instance=ExtResource("2_2031g")]
 layout_mode = 2
 trait_data = ExtResource("3_sssvv")
 
-[node name="Trait Button2" parent="VBoxContainer/Traits Grid" unique_id=766053266 instance=ExtResource("2_2031g")]
+[node name="Trait Button2" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=766053266 instance=ExtResource("2_2031g")]
 layout_mode = 2
-trait_data = ExtResource("4_pran3")
+trait_data = ExtResource("10_4gu38")
 
-[node name="Trait Button3" parent="VBoxContainer/Traits Grid" unique_id=1917323891 instance=ExtResource("2_2031g")]
-layout_mode = 2
-trait_data = ExtResource("5_7d2ci")
-
-[node name="Trait Button4" parent="VBoxContainer/Traits Grid" unique_id=1165838064 instance=ExtResource("2_2031g")]
-layout_mode = 2
-trait_data = ExtResource("6_y57u3")
-
-[node name="Trait Button5" parent="VBoxContainer/Traits Grid" unique_id=87857125 instance=ExtResource("2_2031g")]
-layout_mode = 2
-trait_data = ExtResource("7_86ppj")
-
-[node name="Trait Button6" parent="VBoxContainer/Traits Grid" unique_id=660872766 instance=ExtResource("2_2031g")]
-layout_mode = 2
-trait_data = ExtResource("8_s5hvl")
-
-[node name="Trait Button7" parent="VBoxContainer/Traits Grid" unique_id=428214960 instance=ExtResource("2_2031g")]
+[node name="Trait Button3" parent="VBoxContainer/Traits Grid/HBoxContainer" unique_id=1917323891 instance=ExtResource("2_2031g")]
 layout_mode = 2
 trait_data = ExtResource("9_nxlpp")
 
-[node name="Trait Button8" parent="VBoxContainer/Traits Grid" unique_id=1046081924 instance=ExtResource("2_2031g")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Traits Grid" unique_id=354400075]
 layout_mode = 2
-trait_data = ExtResource("10_4gu38")
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+
+[node name="Trait Button4" parent="VBoxContainer/Traits Grid/HBoxContainer2" unique_id=1165838064 instance=ExtResource("2_2031g")]
+layout_mode = 2
+trait_data = ExtResource("4_pran3")
+unlocked_by_fight = 1
+
+[node name="Trait Button5" parent="VBoxContainer/Traits Grid/HBoxContainer2" unique_id=87857125 instance=ExtResource("2_2031g")]
+layout_mode = 2
+trait_data = ExtResource("5_7d2ci")
+unlocked_by_fight = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/Traits Grid" unique_id=1923429320]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+
+[node name="Trait Button6" parent="VBoxContainer/Traits Grid/HBoxContainer3" unique_id=660872766 instance=ExtResource("2_2031g")]
+layout_mode = 2
+trait_data = ExtResource("8_s5hvl")
+unlocked_by_fight = 2
+
+[node name="Trait Button7" parent="VBoxContainer/Traits Grid/HBoxContainer3" unique_id=428214960 instance=ExtResource("2_2031g")]
+layout_mode = 2
+trait_data = ExtResource("6_y57u3")
+unlocked_by_fight = 2
 
 [node name="Bottom Buttons" type="HBoxContainer" parent="VBoxContainer" unique_id=1233665040]
 layout_mode = 2

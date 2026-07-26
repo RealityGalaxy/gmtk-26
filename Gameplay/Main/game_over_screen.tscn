@@ -28,11 +28,34 @@ text = "You Win"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Game Over Content" unique_id=365110233]
+[node name="Retry" type="Button" parent="Game Over Content" unique_id=1175602196]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Retry"
+
+[node name="Control" type="Control" parent="Game Over Content" unique_id=1356943780]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="Game Over Content" unique_id=407729882]
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="Game Over Content" unique_id=1641439504]
+layout_mode = 2
+
+[node name="Control4" type="Control" parent="Game Over Content" unique_id=1194211984]
+layout_mode = 2
+
+[node name="Control5" type="Control" parent="Game Over Content" unique_id=1067669879]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Game Over Content" unique_id=365110233]
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
 text = "Go Back"
 
-[connection signal="pressed" from="Game Over Content/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Game Over Content/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Game Over Content/Back" to="." method="_on_button_pressed"]

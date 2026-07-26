@@ -28,12 +28,14 @@ enum EnemyState {
 @export var idle_sprite: Resource
 @export var attack_sprite: Resource
 @export var vulnerable_sprite: Resource
+@export var background_sprite: Resource
 var current_idle_sprite: Resource
 
 var current_state: EnemyState = EnemyState.DEFAULT
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#health_bar.
 	current_idle_sprite = idle_sprite
 	health_bar.setup_health(max_health)
 	SignalHub.game_tick.connect(on_tick)
@@ -41,6 +43,7 @@ func _ready() -> void:
 	SignalHub.player_parry.connect(on_player_parry)
 	SignalHub.game_pause.connect(func() -> void: game_paused=true)
 	SignalHub.enemy_bpm.emit(bpm)
+	SignalHub.background_set.emit(background_sprite)
 	
 func on_player_parry(damage: float) -> void:
 	health_bar.update_health(-damage)
@@ -89,8 +92,6 @@ var game_paused := false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !game_paused:
-		health_bar.update_health(-delta)
 	if health_bar.target_value <= 0:
 		SignalHub.enemy_died.emit()
 	
@@ -176,6 +177,7 @@ func take_damage() -> void:
 		failed_attack_timer.timeout.disconnect(punish_player)
 		failed_attack_timer = null
 	health_bar.update_health(-last_attack_dmg)
+	last_attack_time = -1
 	if PlayerData.attack_combo:
 		SignalHub.combo_stack.emit()
 	if PlayerData.time_steal > 0:
